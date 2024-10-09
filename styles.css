@@ -1,0 +1,265 @@
+/* GLOBAL */
+html{
+    scroll-behavior: smooth;
+}
+/* END OF GLOBAL */
+
+/* CUSTOM FONTS */
+@font-face {
+    font-family: Computerfont;
+    src: url(Fonts/Computerfont.ttf);
+    font-weight: bold;
+}
+/* END OF CUSTOM FONTS */
+
+/* SPLASH SCREEN BREATHING EFECT */
+@keyframes breathe {
+    0% { filter: brightness(50%); }
+    50% { filter: brightness(100%); }
+    100% { filter: brightness(50%); }
+  }
+  
+  .breathing-image {
+    width: auto;
+    height: 200px;
+    background: url('Media/Short-The\ Dance\ Dimension.png') no-repeat center center;
+    animation: breathe 2s infinite ease-in-out;
+  }
+/* END OF SPLASH SCREEN BREATHING EFECT */
+
+/* NOT ORGANISED */
+.laforme{
+    padding: 0 18px;
+    margin: 5px;
+}
+
+.altfield{
+    display: block;
+    margin-left: 50%;
+}
+
+textarea{
+    width: 150px;
+    
+}
+
+.WH{
+    background-image: url(Media/Dummy_File.png);
+    margin: auto;
+    border: antiquewhite;
+    border-width: 5px;
+    display: inline-block;
+    width: 150px;
+    height: 150px;
+}
+/* END OF NOT ORGANISED */
+
+/* GLOWING EFFECT */
+.glow {
+    text-transform: uppercase;
+    font-family: Computerfont;
+    overflow: auto;
+    text-align: center;
+    display: block;
+    color: antiquewhite;
+    text-shadow: 
+        0 0 7px #c2d3be,
+        0 0 10px #99b495,
+        0 0 21px #8aa892;
+}
+/* END OF GLOWING EFFECT */
+
+/* BUTTONS */
+.button-74 {
+    width: 150px;
+    padding: 10px;
+    margin: 5px;
+
+    cursor: pointer;
+    font-family: Computerfont;
+    font-size: 18px;
+    text-align: center;
+    text-transform: uppercase;
+
+    padding: 0 18px;
+    table-layout: fixed;
+    line-height: 50px;
+
+    background-color: #73ac7a;
+    border: 2px solid #7cad7b;
+    box-shadow: 
+        0 0 7px #c2d3be,
+        0 0 10px #99b495,
+        0 0 21px #8aa892;
+}
+
+.button-74:hover {
+  background-color: antiquewhite;
+  color: black;
+}
+
+.sp_button{
+    margin: 0 auto;
+    display: block;}
+/* END OF THE BUTTONS */
+
+/* CUSTOM IDs */
+    /* BACKGROUNDS */
+    #menuBG{
+    background-image: url(Media/ABlackBG.png);
+    }
+
+    #loadBG{
+    background-color: black;
+    }   
+
+    #computerBG{
+    background-image: url(Media/BigGreenBG.png);
+    }
+    /* END OF BACKGROUNDS */
+
+#menu_logo{
+    position: center;
+    width: 150px;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+#scoreList{
+    list-style-type: none;
+    padding: 0;
+    al
+}
+
+#scoreList li{
+    padding: 5px 0;
+    border-bottom: 1px solid #eee;
+}
+/* END OF CUSTOM IDs */
+
+.main-content {
+    padding-top: 50px;
+    padding-right: 20px;
+    padding-left: 20px;
+    display: block;
+    align-content: center;
+    display: flex;
+    position: absolute;
+    left: 0; 
+    right: 0; 
+    margin-inline: auto; 
+    width: fit-content;
+    justify-content: space-between;
+}
+
+.upload-content {
+    padding-top: 50px;
+    padding-right: 20px;
+    padding-left: 20px;
+    display: inline-flex;
+    align-content: center;
+    /* display: flex; */
+    /* position: absolute; */
+    left: 0; 
+    right: 0; 
+    margin-inline: auto; 
+    width: fit-content;
+    justify-content: space-between;
+}
+
+/* SPECIFIC USECASE */
+fieldset{
+    margin-left: 20px;
+    width: 200px;
+    height: auto;
+    align-items: center;
+    border-radius: 5px;
+    border-width: 5px;
+    border-color: antiquewhite;
+    color: black;
+    background-image: url(Media/ComputerBG.png);
+    background-repeat: no-repeat;
+    box-shadow: 
+      0 0 7px #c2d3be,
+      0 0 10px #99b495,
+      0 0 21px #8aa892;
+}
+/* END OF SPECIFIC USECASE */
+
+.textarea{
+    background-color: antiquewhite;
+    border-color: antiquewhite;
+    box-shadow: 
+      0 0 7px #c2d3be,
+      0 0 10px #99b495,
+      0 0 21px #8aa892;
+}
+
+.ctextar{
+    /* align-content:baseline */
+    /* width: 160px; */
+    height: 120px;
+    background-color: antiquewhite;
+    border-color: antiquewhite;
+    box-shadow: 
+      0 0 7px #c2d3be,
+      0 0 10px #99b495,
+      0 0 21px #8aa892;
+}
+/* MENU */
+.menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; 
+    flex: 0;
+    }
+/* END OF MENU */
+
+/* COMMENTS*/
+.comment-container {
+    display: left;
+    width: 150px;
+    max-height: auto;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    margin: 10px auto;
+    padding: 10px;
+    background-color: antiquewhite;
+}
+
+.comment-box {
+    width: 150px;
+    padding: 10px;
+    margin: 10px auto;
+    display: block;
+}
+/*END OF THE COMMENTS*/
+
+/* SONG_LIST */
+        .song-item {
+            border: 1px solid #ccc;
+            margin: 10px 0;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+        }
+        .song-art {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            margin-right: 20px;
+        }
+        .pagination {
+            margin-top: 20px;
+        }
+        .pagination a {
+            padding: 8px 16px;
+            text-decoration: none;
+            color: black;
+        }
+        .pagination a.active {
+            background-color: #4CAF50;
+            color: white;
+        }
+/* END OF SONG_LIST */
