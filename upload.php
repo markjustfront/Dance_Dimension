@@ -39,12 +39,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     } else {
                         $errors[] = "Failed to move the uploaded file $fileName.";
                     }
-                } else {
-                    $errors[] = "File $fileName was not uploaded via HTTP POST.";
-                }
-            } else {
-                $errors[] = "Error uploading $fileName: Error code $fileError";
-            }
+                } 
+            } 
         }
     }
 
@@ -55,7 +51,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $existingData[] = $jsonData;
         
         if (file_put_contents($jsonFilePath, json_encode($existingData, JSON_PRETTY_PRINT)) !== false) {
-            echo "Data saved to JSON successfully.<br>";
             echo "<script type='text/javascript'>";
             echo "window.location.href = 'Congrats.html';";
             echo "</script>";
@@ -65,11 +60,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
 
-    if (!empty($errors)) {
-        foreach ($errors as $error) {
-            echo $error . "<br>";
-        }
-    }
 } else {
     echo "No POST data was sent or there was an issue with the form submission.";
 }

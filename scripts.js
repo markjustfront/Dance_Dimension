@@ -12,7 +12,7 @@ document.getElementById('imageUpload').addEventListener('change', function () {
         reader.readAsDataURL(file);
             });
 
-// Song Dispaly
+// Song Display
 
 document.addEventListener('DOMContentLoaded', function() {
     fetch('Text_Data/song_info.json')
