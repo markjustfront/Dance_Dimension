@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="/2-Web_Assets/styles.css">
+    <link rel="icon" type="image/png" href="/2-Web_Assets/The Dance Dimension.png">
+    <meta charset="UTF-8">
+    <title>Upload</title>
+</head>
+<body id="BlackBG">
+    <div class="backbutton">
+        <button class="button-74 glow" onclick="window.location.href='/Menu/Menu.html'">Main Menu</button>
+    </div>
+    <div class="upload-content">
+        <fieldset class="altfield">
+            <form action="upload.php" method="post" enctype="multipart/form-data" class="glow">
+                <label for="title" class="glow laforme">Title</label>
+                <input type="text" class="title" name="title" placeholder="Computer World" />
+    
+                <label for="artist" class="glow laforme">Artist</label>
+                <input type="text" name="artist" placeholder="Kraftwerk" />
+    
+                <label for="image" class="glow laforme">Image</label>
+                <input type="file" name="image" id="imageUpload" accept="image/*" />
+                <img id="preview" src="#" class="DummyBlock" style="display: none;" />
+                
+                <label for="song" class="glow laforme">Song File</label>
+                <input type="file" name="song" accept="audio/*">
+    
+                <label for="description" class="glow laforme">Description</label>
+                <textarea class="textarea" name="description" placeholder="Das not comput..."></textarea>
+    
+                <label for="gameFile" class="glow laforme">Game File</label>
+                <input type="file" name="gameFile" style="display:none;" />
+                <input type="hidden" name="uploadMethod" id="uploadMethodValue" value="file">
+                <input type="submit" value="Upload">
+            </form>
+        </fieldset>    
+
+        <fieldset class="altfield">
+            <lable class="glow laforme">Game File Upload Method</lable>
+            <input type="radio" id="fileUpload" name="uploadMethod" value="file" checked>
+            <label for="fileUpload" class="glow">File Upload</label>
+            <input type="radio" id="textUpload" name="uploadMethod" value="text">
+            <label for="textUpload" class="glow">Text Entry</label>
+        </fieldset>
+
+        <fieldset class="altfield" id="textEntryFieldset" style="display:none;">
+            <div class="glow laforme instructions">
+                <p> Instructions:<br>
+                - The first line must be the amount of elements to interact.<br><br>
+                - Enter one step per line.<br><br>
+                - Use format: key_number # beat_start # beat_end<br><br>
+                - Example: <br>
+                3 <br>
+                99 # 0.5 # 1.5
+            </p>
+            </div>
+            <label for="textgameFile" class="glow laforme">Game File in Text</label>
+            <textarea id="textgameFile" class="glow laforme comment-container" name="textgameFile" placeholder="Bli bli bli bla..."></textarea>
+            <button id="textUploadButton" class="glow">Upload Text</button>
+        </fieldset>
+    </div>
+    
+    <script src="upload.js"></script>
+</body>
+</html>

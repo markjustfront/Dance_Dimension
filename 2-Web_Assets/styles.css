@@ -1,0 +1,303 @@
+/* NOT ORGANIZED */
+.laforme{
+    padding: 0 18px;
+    margin: 5px;
+}
+
+.altfield{
+    display: block;
+    margin-left: 50%;
+}
+
+textarea{
+    width: 150px;
+    background-color: antiquewhite;
+    border-color: antiquewhite;
+    box-shadow: 
+        0 0 7px #c2d3be,
+        0 0 10px #99b495,
+        0 0 21px #8aa892;
+}
+
+.main-content, .upload-content {
+    padding-top: 50px;
+    padding-right: 20px;
+    padding-left: 20px;
+    justify-content: center;
+    align-items: start; 
+    width: 100%; 
+}
+
+.DummyBlock{
+    background-image: url(/2-Web_Assets/Dummy_File.png);
+    margin: auto;
+    border: antiquewhite;
+    border-width: 5px;
+    display: inline-block;
+    width: 150px;
+    height: 150px;
+}
+/* END OF NOT ORGANIZED */
+
+@font-face {
+    font-family: Computerfont;
+    src: url(/2-Web_Assets/Fonts/Computerfont.ttf);
+    font-weight: bold;
+}
+
+/* SPASH PAGE */
+@keyframes breathe {
+    0% { filter: brightness(50%); }
+    50% { filter: brightness(100%); }
+    100% { filter: brightness(50%); }
+}
+
+.breathing-image {
+    width: auto;
+    height: 200px;
+    background: url(/2-Web_Assets/Short-The_Dance_Dimension.png) no-repeat center center;
+    animation: breathe 2s infinite ease-in-out;
+}
+/* END OF SPALSH PAGE */
+
+/* GLOBAL FX */
+html{
+    scroll-behavior: smooth;
+}
+
+.glow {
+    text-transform: uppercase;
+    font-family: Computerfont;
+    overflow: auto;
+    text-align: center;
+    display: block;
+    color: antiquewhite;
+    text-shadow: 
+        0 0 7px #c2d3be,
+        0 0 10px #99b495,
+        0 0 21px #8aa892;}
+
+.button-74 {
+    width: 150px;
+    padding: 10px;
+    margin: 5px;
+    cursor: pointer;
+    font-family: Computerfont;
+    font-size: 18px;
+    text-align: center;
+    text-transform: uppercase;
+    padding: 0 18px;
+    table-layout: fixed;
+    line-height: 50px;
+    background-color: #73ac7a;
+    border: 2px solid #7cad7b;
+    box-shadow: 
+        0 0 7px #c2d3be,
+        0 0 10px #99b495,
+        0 0 21px #8aa892;
+}
+
+.button-74:hover {
+    background-color: antiquewhite;
+    color: black;
+}
+
+.sp_button{
+    margin: 0 auto;
+    display: block;
+}
+
+fieldset {
+    width: 200px;
+    margin: 10px auto; 
+    padding: 10px auto;
+    /* -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box; */
+    float: left;
+    box-sizing: border-box;
+    /* display: inline-table; */
+    align-content:center;
+    align-items: center; 
+    background-size: cover;
+    border-radius: 5px;
+    border-width: 5px;
+    border-color: antiquewhite;
+    background-image: url(/2-Web_Assets/ComputerBG.png);
+    background-repeat: no-repeat;
+    box-shadow: 
+        0 0 7px #c2d3be,
+        0 0 10px #99b495,
+        0 0 21px #8aa892;
+}
+
+.fakefiledset {
+    width: 200px;
+    margin: 10px auto; 
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    float: left;
+    box-sizing: border-box;
+    display: inline-table;
+    align-content:center;
+    align-items: center; 
+    background-size: cover;
+    border-radius: 5px;
+    border-width: 5px;
+    border-color: antiquewhite;
+    background-image: url(/2-Web_Assets/ComputerBG.png);
+    background-repeat: no-repeat;
+    box-shadow: 
+        0 0 7px #c2d3be,
+        0 0 10px #99b495,
+        0 0 21px #8aa892;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+    margin: 0;
+    overflow: hidden;
+}
+
+#gameContainer {
+    text-align: center;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px antiquewhite;
+}
+
+.arrow {
+    font-family: Computerfont;
+    font-size: 48px;
+    margin: 5px;
+}
+
+#currentArrow {
+    margin-top: 20px;
+    font-size: 72px;
+}
+
+#score {
+    margin-top: 20px;
+    font-size: 24px;
+}
+
+/* SONG_LIST */
+.song-item {
+    border: 1px solid #ccc;
+    margin: 10px 0;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.song-art {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    margin-right: 20px;
+}
+
+.pagination {
+    margin-top: 20px;
+}
+
+.pagination a {
+    padding: 8px 16px;
+    text-decoration: none;
+    color: black;
+}
+
+.pagination a.active {
+    background-color: #4CAF50;
+    color: white;
+}
+/* END OF SONG_LIST */
+
+/* DARK MODE */
+/* body {
+    color: #222;
+    background: #fff;
+  }
+  a {
+    color: #0033cc;
+  } */
+  
+  /* Dark Mode styles */
+  /* body.dark-theme {
+    color: #eee;
+    background: #121212;
+  }
+  body.dark-theme a {
+    color: #809fff;
+  } */
+/* END OF DARKMODE */
+
+/* CUSTOM IDs */
+    /* BACKGROUNDS */
+    #BlackBG{
+        background-image: url(/2-Web_Assets/ABlackBG.png);
+    }
+
+    #loadBG{
+        background-color: black;
+    }   
+
+    #computerBG{
+        background-image: url(/2-Web_Assets/BigGreenBG.png);
+    }
+    /* END OF BACKGROUNDS */
+
+#menu_logo{
+    position: center;
+    width: 150px;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+#scoreList{
+    list-style-type: none;
+    padding: 0;
+    /* Note: 'al' seems like a typo, consider removing or replacing if intended for something else */
+}
+
+#scoreList li{
+    padding: 5px 0;
+    border-bottom: 1px solid #eee;
+}
+/* END OF CUSTOM IDs */
+
+/* MENU */
+.menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; 
+    flex: 0;
+}
+/* END OF MENU */
+
+/* COMMENTS*/
+.comment-container {
+    display: left;
+    width: 150px;
+    max-height: auto;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    margin: 10px auto;
+    padding: 10px;
+    background-color: antiquewhite;
+}
+
+.comment-box {
+    width: 150px;
+    padding: 10px;
+    margin: 10px auto;
+    display: block;
+}
+/*END OF THE COMMENTS*/

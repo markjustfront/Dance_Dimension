@@ -7,27 +7,27 @@ html{
 /* CUSTOM FONTS */
 @font-face {
     font-family: Computerfont;
-    src: url(Fonts/Computerfont.ttf);
+    src: url(2-Web_Assets/Fonts/Computerfont.ttf);
     font-weight: bold;
 }
 /* END OF CUSTOM FONTS */
 
-/* SPLASH SCREEN BREATHING EFECT */
+/* SPLASH SCREEN BREATHING EFFECT */
 @keyframes breathe {
     0% { filter: brightness(50%); }
     50% { filter: brightness(100%); }
     100% { filter: brightness(50%); }
-  }
+}
   
-  .breathing-image {
+.breathing-image {
     width: auto;
     height: 200px;
-    background: url('Media/Short-The\ Dance\ Dimension.png') no-repeat center center;
+    background: url('Media/Short-The Dance Dimension.png') no-repeat center center;
     animation: breathe 2s infinite ease-in-out;
-  }
-/* END OF SPLASH SCREEN BREATHING EFECT */
+}
+/* END OF SPLASH SCREEN BREATHING EFFECT */
 
-/* NOT ORGANISED */
+/* NOT ORGANIZED */
 .laforme{
     padding: 0 18px;
     margin: 5px;
@@ -39,8 +39,7 @@ html{
 }
 
 textarea{
-    width: 150px;
-    
+    width: 150px;    
 }
 
 .WH{
@@ -52,7 +51,7 @@ textarea{
     width: 150px;
     height: 150px;
 }
-/* END OF NOT ORGANISED */
+/* END OF NOT ORGANIZED */
 
 /* GLOWING EFFECT */
 .glow {
@@ -74,17 +73,14 @@ textarea{
     width: 150px;
     padding: 10px;
     margin: 5px;
-
     cursor: pointer;
     font-family: Computerfont;
     font-size: 18px;
     text-align: center;
     text-transform: uppercase;
-
     padding: 0 18px;
     table-layout: fixed;
     line-height: 50px;
-
     background-color: #73ac7a;
     border: 2px solid #7cad7b;
     box-shadow: 
@@ -94,27 +90,28 @@ textarea{
 }
 
 .button-74:hover {
-  background-color: antiquewhite;
-  color: black;
+    background-color: antiquewhite;
+    color: black;
 }
 
 .sp_button{
     margin: 0 auto;
-    display: block;}
+    display: block;
+}
 /* END OF THE BUTTONS */
 
 /* CUSTOM IDs */
     /* BACKGROUNDS */
     #menuBG{
-    background-image: url(Media/ABlackBG.png);
+        background-image: url(Media/ABlackBG.png);
     }
 
     #loadBG{
-    background-color: black;
+        background-color: black;
     }   
 
     #computerBG{
-    background-image: url(Media/BigGreenBG.png);
+        background-image: url(Media/BigGreenBG.png);
     }
     /* END OF BACKGROUNDS */
 
@@ -128,7 +125,7 @@ textarea{
 #scoreList{
     list-style-type: none;
     padding: 0;
-    al
+    /* Note: 'al' seems like a typo, consider removing or replacing if intended for something else */
 }
 
 #scoreList li{
@@ -137,75 +134,60 @@ textarea{
 }
 /* END OF CUSTOM IDs */
 
-.main-content {
+.main-content, .upload-content {
     padding-top: 50px;
     padding-right: 20px;
     padding-left: 20px;
-    display: block;
-    align-content: center;
-    display: flex;
-    position: absolute;
-    left: 0; 
-    right: 0; 
-    margin-inline: auto; 
-    width: fit-content;
-    justify-content: space-between;
+    display: flex; /* Changed to flex for centering */
+    justify-content: center; /* Center horizontally */
+    align-items: start; /* Align items to the start to prevent stretching */
+    width: 100%; /* Ensure it takes full width for centering to work correctly */
 }
 
-.upload-content {
-    padding-top: 50px;
-    padding-right: 20px;
-    padding-left: 20px;
-    display: inline-flex;
-    align-content: center;
-    /* display: flex; */
-    /* position: absolute; */
-    left: 0; 
-    right: 0; 
-    margin-inline: auto; 
-    width: fit-content;
-    justify-content: space-between;
-}
-
-/* SPECIFIC USECASE */
-fieldset{
-    margin-left: 20px;
+/* Fieldset modifications for better alignment and appearance */
+fieldset {
     width: 200px;
-    height: auto;
-    align-items: center;
+    margin: 10px auto; /* Center fieldset horizontally */
+    display: flex; /* Use flexbox for content alignment */
+    flex-direction: column;
+    align-items: center; /* Center-align items inside fieldset */
+    background-size: cover; /* Make sure the background covers the fieldset */
     border-radius: 5px;
     border-width: 5px;
     border-color: antiquewhite;
-    color: black;
     background-image: url(Media/ComputerBG.png);
     background-repeat: no-repeat;
     box-shadow: 
-      0 0 7px #c2d3be,
-      0 0 10px #99b495,
-      0 0 21px #8aa892;
+        0 0 7px #c2d3be,
+        0 0 10px #99b495,
+        0 0 21px #8aa892;
 }
-/* END OF SPECIFIC USECASE */
+
+/* If there's a specific fieldset for manual upload, ensure it's centered */
+#manualUploadFieldset {
+    margin-left: auto;
+    margin-right: auto;
+}
 
 .textarea{
     background-color: antiquewhite;
     border-color: antiquewhite;
     box-shadow: 
-      0 0 7px #c2d3be,
-      0 0 10px #99b495,
-      0 0 21px #8aa892;
+        0 0 7px #c2d3be,
+        0 0 10px #99b495,
+        0 0 21px #8aa892;
 }
 
 .ctextar{
-    /* align-content:baseline */
-    /* width: 160px; */
     height: 120px;
     background-color: antiquewhite;
     border-color: antiquewhite;
     box-shadow: 
-      0 0 7px #c2d3be,
-      0 0 10px #99b495,
-      0 0 21px #8aa892;
+        0 0 7px #c2d3be,
+        0 0 10px #99b495,
+        0 0 21px #8aa892;
 }
+
 /* MENU */
 .menu {
     display: flex;
@@ -213,7 +195,7 @@ fieldset{
     align-items: center;
     justify-content: center; 
     flex: 0;
-    }
+}
 /* END OF MENU */
 
 /* COMMENTS*/
@@ -234,32 +216,47 @@ fieldset{
     margin: 10px auto;
     display: block;
 }
-/*END OF THE COMMENTS*/
+END OF THE COMMENTS
 
 /* SONG_LIST */
-        .song-item {
-            border: 1px solid #ccc;
-            margin: 10px 0;
-            padding: 10px;
-            display: flex;
-            align-items: center;
-        }
-        .song-art {
-            width: 100px;
-            height: 100px;
-            object-fit: cover;
-            margin-right: 20px;
-        }
-        .pagination {
-            margin-top: 20px;
-        }
-        .pagination a {
-            padding: 8px 16px;
-            text-decoration: none;
-            color: black;
-        }
-        .pagination a.active {
-            background-color: #4CAF50;
-            color: white;
-        }
+.song-item {
+    border: 1px solid #ccc;
+    margin: 10px 0;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.song-art {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    margin-right: 20px;
+}
+
+.pagination {
+    margin-top: 20px;
+}
+
+.pagination a {
+    padding: 8px 16px;
+    text-decoration: none;
+    color: black;
+}
+
+.pagination a.active {
+    background-color: #4CAF50;
+    color: white;
+}
 /* END OF SONG_LIST */
+
+.instructions {
+    font-size: 0.8em;
+    margin-top: 5px;
+}
+
+code {
+    background-color: #f0f0f0;
+    padding: 2px 4px;
+    border-radius: 3px;
+}

@@ -1,5 +1,5 @@
 <?php
-$baseDir = 'Game_Data\\';
+$baseDir = '../1-Song_Data\\';
 $dirs = [
     'Songs' => $baseDir . 'Songs\\',
     'Art' => $baseDir . 'Art\\',
@@ -35,12 +35,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     $dir = $fileType === 'gameFile' ? $dirs['GameFiles'] : ($fileType === 'image' ? $dirs['Art'] : $dirs['Songs']);
 
                     if (move_uploaded_file($fileTmpName, $dir . $newFileName)) {
-                        $jsonData[$fileType . '_path'] = $dir . $newFileName; // Store the full path for JSON
+                        $jsonData[$fileType . '_path'] = $dir . $newFileName;
                     } else {
                         $errors[] = "Failed to move the uploaded file $fileName.";
                     }
                 } 
             } 
+        }
+    }
+
+    // Handle game file text upload
+    if ($_POST['uploadMethod'] == 'text') {
+        $gameFileText = $_POST['textgameFile'];
+        $gameFileName = uniqid('', true) . '.txt';
+        $filePath = $dirs['GameFiles'] . $gameFileName;
+        if (file_put_contents($filePath, $gameFileText)) {
+            $jsonData['gameFile_path'] = $filePath;
+        } else {
+            $errors[] = "Failed to save the game file text.";
         }
     }
 
@@ -59,6 +71,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $errors[] = "Failed to write to JSON file.<br>";
         }
     }
+
+    // If there are errors, you might want to handle them here, e.g., display them or log them
 
 } else {
     echo "No POST data was sent or there was an issue with the form submission.";

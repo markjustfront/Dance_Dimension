@@ -1,5 +1,5 @@
 <?php
-$jsonFilePath = 'Game_Data/Text_Data/song_info.json';
+$jsonFilePath = '../1-Song_Data/Text_Data/song_info.json';
 $songsPerPage = 5;
 
 // Check if the JSON file exists
@@ -26,16 +26,16 @@ $songsToDisplay = array_slice($songs, $startIndex, $songsPerPage);
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<link rel="stylesheet" type="text/css" href="styles.css">
-    <link rel="icon" type="image/png" href="Media/The Dance Dimension.png"
+<link rel="stylesheet" type="text/css" href="/2-Web_Assets/styles.css">
+    <link rel="icon" type="image/png" href="/2-Web_Assets/The Dance Dimension.png">
     <meta charset="UTf-8">
         <title>Song List</title>
 </head>
-<body id="computerBG">
+<body id="BlackBG">
         <div class="backbutton">
-        <button class="button-74 glow" onclick="window.location.href='Menu.html'">Main Menu</button>
+        <button class="button-74 glow" onclick="window.location.href='/Menu/Menu.html'">Main Menu</button>
 <?php foreach($songsToDisplay as $song): ?>
-<div class="song-item">
+<div class="song-item" id="computerBG">
     <img src="<?php echo htmlspecialchars($song['image_path']); ?>" alt="Song Art" class="song-art">
     <div>
         <h3 class="glow"><?php echo htmlspecialchars($song['title']); ?></h3>
@@ -48,7 +48,7 @@ $songsToDisplay = array_slice($songs, $startIndex, $songsPerPage);
 </div>
 <?php endforeach; ?>
 
-<div class="pagination glow">
+<div class="pagination glow fakefieldset">
     <?php 
     $totalPages = ceil($totalSongs / $songsPerPage);
     for ($i = 1; $i <= $totalPages; $i++):
