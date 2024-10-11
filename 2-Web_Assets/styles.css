@@ -4,60 +4,41 @@
     margin: 5px;
 }
 
+/* Affects the Uplaod page when disalbed the GFUM 
+and the subsecuents fieldset moves to the right 
+instead of the bottom of the main fieldset */
 .altfield{
     display: block;
     margin-left: 50%;
 }
 
-textarea{
-    width: 150px;
-    background-color: antiquewhite;
-    border-color: antiquewhite;
-    box-shadow: 
-        0 0 7px #c2d3be,
-        0 0 10px #99b495,
-        0 0 21px #8aa892;
-}
+/* DARK MODE */
+body {
+    color: #222;
+    background: #fff;
+  }
+  a {
+    color: #0033cc;
+  } */
+  
+  /* Dark Mode styles */
+  body.dark-theme {
+    background: #121212;
+  }
+  body.dark-theme a {
+    color: #809fff;
+  }
+/* END OF DARKMODE */
 
-.main-content, .upload-content {
-    padding-top: 50px;
-    padding-right: 20px;
-    padding-left: 20px;
-    justify-content: center;
-    align-items: start; 
-}
-
-.DummyBlock{
-    background-image: url(/2-Web_Assets/Dummy_File.png);
-    margin: auto;
-    border: antiquewhite;
-    border-width: 5px;
-    display: inline-block;
-    width: 150px;
-    height: 150px;
-}
 /* END OF NOT ORGANIZED */
 
+/* FONTS */
 @font-face {
     font-family: Computerfont;
     src: url(/2-Web_Assets/Fonts/Computerfont.ttf);
     font-weight: bold;
 }
-
-/* SPASH PAGE */
-@keyframes breathe {
-    0% { filter: brightness(50%); }
-    50% { filter: brightness(100%); }
-    100% { filter: brightness(50%); }
-}
-
-.breathing-image {
-    width: auto;
-    height: 200px;
-    background: url(/2-Web_Assets/Short-The_Dance_Dimension.png) no-repeat center center;
-    animation: breathe 2s infinite ease-in-out;
-}
-/* END OF SPALSH PAGE */
+/* END OF FONTS */
 
 /* GLOBAL FX */
 html{
@@ -74,20 +55,52 @@ html{
     text-shadow: 
         0 0 7px #c2d3be,
         0 0 10px #99b495,
-        0 0 21px #8aa892;}
+        0 0 21px #8aa892;
+    }
 
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+    margin: 0;
+    overflow: hidden;
+}
+    /* CUSTOM IDs */
+        /* BACKGROUNDS */
+        #BlackBG{
+            background-image: url(/2-Web_Assets/ABlackBG.png);
+        }
+
+        #loadBG{
+            background-color: black;
+        }   
+
+        #computerBG{
+            background-image: url(/2-Web_Assets/BigGreenBG.png);
+        }
+        /* END OF BACKGROUNDS */
+    /* END OF CUSTOM IDs */
+/* END OF GLOBAL FX */
+
+/* BUTTONS */
 .button-74 {
     width: 150px;
     padding: 10px;
     margin: 5px;
+
     cursor: pointer;
     font-family: Computerfont;
-    font-size: 14px;
+    font-size: 18px;
     text-align: center;
     text-transform: uppercase;
+
     padding: 0 18px;
     table-layout: fixed;
     line-height: 50px;
+
     background-color: #73ac7a;
     border: 2px solid #7cad7b;
     box-shadow: 
@@ -101,27 +114,52 @@ html{
     color: black;
 }
 
-.sp_button{
-    margin: 0 auto;
-    display: block;
+/* END OF BUTTONS */
+
+/* SPASH PAGE */
+@keyframes breathe {
+    0% { filter: brightness(50%); }
+    50% { filter: brightness(100%); }
+    100% { filter: brightness(50%); }
 }
+
+.breathing-image {
+    width: auto;
+    height: 200px;
+    background: url(/2-Web_Assets/Short-The_Dance_Dimension.png) no-repeat center center;
+    animation: breathe 2s infinite ease-in-out;
+}
+/* END OF SPALSH PAGE */
+
+/* TEXTAREAS AN FIELDSETS */
+textarea{
+    width: 150px;
+    background-color: antiquewhite;
+    border-color: antiquewhite;
+    box-shadow: 
+        0 0 7px #c2d3be,
+        0 0 10px #99b495,
+        0 0 21px #8aa892;
+}
+
 
 fieldset {
     width: 200px;
     height: auto;
+
     margin: 10px auto; 
     padding: 10px auto;
-    /* -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box; */
     float: left;
     box-sizing: border-box;
-    /* display: inline-table; */
     align-content:center;
     align-items: center; 
+   
     background-size: cover;
+   
     border-radius: 5px;
     border-width: 5px;
     border-color: antiquewhite;
+    
     background-image: url(/2-Web_Assets/BigGreenBG.png);
     background-repeat: no-repeat;
     box-shadow: 
@@ -130,6 +168,7 @@ fieldset {
         0 0 21px #8aa892;
 }
 
+/* Not being used but intended for the upload page */
 .fakefiledset {
     width: 200px;
     margin: 10px auto; 
@@ -151,18 +190,10 @@ fieldset {
         0 0 10px #99b495,
         0 0 21px #8aa892;
 }
+/* EN OF TEXTAREAS AN FIELDSETS */
 
-body {
-    font-family: Arial, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #f0f0f0;
-    margin: 0;
-    overflow: hidden;
-}
 
+/* GAME */
 #gameContainer {
     text-align: center;
     background: white;
@@ -181,7 +212,7 @@ body {
     margin-top: 20px;
     font-size: 72px;
 }
-
+/* END OF GAME */
 
 
 /* SONG_LIST */
@@ -216,39 +247,22 @@ body {
 }
 /* END OF SONG_LIST */
 
-/* DARK MODE */
-/* body {
-    color: #222;
-    background: #fff;
-  }
-  a {
-    color: #0033cc;
-  } */
-  
-  /* Dark Mode styles */
-  /* body.dark-theme {
-    color: #eee;
-    background: #121212;
-  }
-  body.dark-theme a {
-    color: #809fff;
-  } */
-/* END OF DARKMODE */
+/* MENU */
+.main-content {
+    padding-top: 50px;
+    padding-right: 20px;
+    padding-left: 20px;
+    display: block;
+    align-content: center;
+    display: flex;
+    position: absolute;
+    /* left: 0; 
+    right: 0;  */
+    margin-inline: auto; 
+    width: 650px;
+    /* justify-content: space-between; */
+}
 
-/* CUSTOM IDs */
-    /* BACKGROUNDS */
-    #BlackBG{
-        background-image: url(/2-Web_Assets/ABlackBG.png);
-    }
-
-    #loadBG{
-        background-color: black;
-    }   
-
-    #computerBG{
-        background-image: url(/2-Web_Assets/BigGreenBG.png);
-    }
-    /* END OF BACKGROUNDS */
 
 #menu_logo{
     position: center;
@@ -257,11 +271,7 @@ body {
     margin-bottom: 10px;
 }
 
-
-/* END OF CUSTOM IDs */
-
-/* MENU */
-.menu {
+.menu { 
     margin: 10px;
     width: 150px;    
     display: flex;
@@ -270,40 +280,55 @@ body {
     justify-content: center; 
     flex: 0;
 }
+
+    /* COMMENTS*/
+    .comment-container {
+        display: left;
+        width: 150px;
+        max-height: auto;
+        overflow-y: auto;
+        border: 1px solid #ccc;
+        margin: 10px auto;
+        padding: 10px;
+        background-color: antiquewhite;
+    }
+
+    .comment-box {
+        width: 150px;
+        padding: 10px;
+        margin: 10px auto;
+        display: block;
+    }
+    /*END OF THE COMMENTS*/
+
+    /* SCOREBOARD */
+    #scoreList{
+        list-style-type: none;
+        padding: 0;
+        /* Note: 'al' seems like a typo, consider removing or replacing if intended for something else */
+    }
+
+    #scoreList li{
+        padding: 5px 0;
+        border-bottom: 1px solid #eee;
+    }
+
+    #score {
+        margin-top: 20px;
+        font-size: 24px;
+    }
+    /* END OF SCOREBOARD */
 /* END OF MENU */
 
-/* COMMENTS*/
-.comment-container {
-    display: left;
-    width: 150px;
-    max-height: auto;
-    overflow-y: auto;
-    border: 1px solid #ccc;
-    margin: 10px auto;
-    padding: 10px;
-    background-color: antiquewhite;
-}
-
-.comment-box {
-    width: 150px;
-    padding: 10px;
-    margin: 10px auto;
-    display: block;
-}
-/*END OF THE COMMENTS*/
-
-#scoreList{
-    list-style-type: none;
-    padding: 0;
-    /* Note: 'al' seems like a typo, consider removing or replacing if intended for something else */
-}
-
-#scoreList li{
-    padding: 5px 0;
-    border-bottom: 1px solid #eee;
-}
-
-#score {
-    margin-top: 20px;
-    font-size: 24px;
-}
+/* UPLOAD */
+    /* Dummy file for the image of the song */
+    .DummyBlock{
+        background-image: url(/2-Web_Assets/Dummy_File.png);
+        margin: auto;
+        border: antiquewhite;
+        border-width: 5px;
+        display: inline-block;
+        width: 150px;
+        height: 150px;
+    }
+/* END OF UPLOAD */
