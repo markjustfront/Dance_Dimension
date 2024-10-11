@@ -31,7 +31,7 @@ $songsToDisplay = array_slice($songs, $startIndex, $songsPerPage);
     <meta charset="UTf-8">
         <title>Song List</title>
 </head>
-<body id="BlackBG">
+<body class="body" id="BlackBG">
         <div class="backbutton">
         <button class="button-74 glow" onclick="window.location.href='/Menu/Menu.html'">Main Menu</button>
 <?php foreach($songsToDisplay as $song): ?>

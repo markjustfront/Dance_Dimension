@@ -17,17 +17,17 @@ body {
     color: #222;
     background: #fff;
   }
-  a {
+a {
     color: #0033cc;
-  } */
+  } 
   
   /* Dark Mode styles */
-  body.dark-theme {
+body.dark-theme {
     background: #121212;
   }
-  body.dark-theme a {
+body.dark-theme a {
     color: #809fff;
-  }
+  } 
 /* END OF DARKMODE */
 
 /* END OF NOT ORGANIZED */
@@ -58,7 +58,8 @@ html{
         0 0 21px #8aa892;
     }
 
-body {
+    /* This class is interfiering with the Splash animiation */
+.body {
     font-family: Arial, sans-serif;
     display: flex;
     justify-content: center;

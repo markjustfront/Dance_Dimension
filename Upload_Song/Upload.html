@@ -20,17 +20,17 @@
                 <input type="text" name="artist" placeholder="Kraftwerk" />
     
                 <label for="image" class="glow laforme">Image</label>
-                <input type="file" name="image" id="imageUpload" accept="image/*" />
-                <img id="preview" src="#" class="DummyBlock" style="display: none;" />
+                <input type="file" name="image" id="imageUpload" accept=".jpeg,.png,.jpg" />
+                <img id="preview" src="#" class="DummyBlock" />
                 
                 <label for="song" class="glow laforme">Song File</label>
-                <input type="file" name="song" accept="audio/*">
+                <input type="file" name="song" accept=".mp3">
     
                 <label for="description" class="glow laforme">Description</label>
                 <textarea class="textarea" name="description" placeholder="Das not comput..."></textarea>
     
                 <label for="gameFile" class="glow laforme">Game File</label>
-                <input type="file" name="gameFile" style="display:none;" />
+                <input type="file" name="gameFile" saccept=".txt" />
                 <input type="hidden" name="uploadMethod" id="uploadMethodValue" value="file">
                 <input type="submit" value="Upload">
             </form>
