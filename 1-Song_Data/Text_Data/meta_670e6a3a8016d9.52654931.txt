@@ -1,1 +1,0 @@
-{"title":"Hola","artist":"hola","description":"fgfgfgf","image_path":"..\/1-Song_Data\\Art\\BMW_X5_xDrive40d_M-Sport.jpg","song_path":"..\/1-Song_Data\\Songs\\La Santa Espina (Sardana). - Cobla La Principal De La Bisbal..mp3","game_path":"..\/1-Song_Data\\GameFiles\\nggyu.txt"}

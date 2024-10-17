@@ -1,1 +1,0 @@
-{"title":"C","artist":"C","description":"cccccccccccccc","image_path":"..\/1-Song_Data\\Art\\0a468b8c54bc6f751ba47c74bc409869.1000x1000x1-3006554735.jpg","song_path":"..\/1-Song_Data\\Songs\\Rick Astley - Never Gonna Give You Up (Official Music Video) - Rick Astley (youtube).mp3","game_path":"..\/1-Song_Data\\GameFiles\\nggyu.txt"}

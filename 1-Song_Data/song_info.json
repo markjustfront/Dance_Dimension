@@ -1,0 +1,20 @@
+[
+    {
+        "title": "Never Gonna Give You Up",
+        "duration": "151",
+        "Author": "Rick Astley",
+        "Art": "..\/1-Song_Data\/Art\/Rick.jpg",
+        "SongFile": "..\/1-Song_Data\/Songs\/Rick.mp3",
+        "GameFile": "..\/1-Song_Data\/GameFiles\/Test.txt",
+        "ID": 0
+    },
+    {
+        "title": "Smooth Criminal",
+        "duration": "151",
+        "Author": "Michael Json",
+        "Art": "..\/1-Song_Data\/Art\/Mick.jpg",
+        "SongFile": "..\/1-Song_Data\/Songs\/Mick.mp3",
+        "GameFile": "..\/1-Song_Data\/GameFiles\/Test.txt",
+        "ID": 1
+    }
+]
