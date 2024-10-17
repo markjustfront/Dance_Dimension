@@ -12,7 +12,7 @@ In this project we accomplished and structured a working or semiworking game bas
 │  │    ├── Edit Song
 │  │    └── Delete Song
 │  ├── Upload
-│  └── Settings
+│  └── Settings (WIP)
 ├── Comments
 └── Leaderboard
 ```
@@ -35,7 +35,7 @@ In this project we accomplished and structured a working or semiworking game bas
 
 . Upload: This is where you will be able to upload a desired song. It has the following: Name of the Song, Artist, Song Image, Audio file, Description and Game File.
 
-. Setting: Basic settings for the web, enable sound, input type and such.
+. Setting: Basic settings for the web, enable sound, input type and such. (WIP)
 
 **Fourth Level**
 
@@ -46,9 +46,3 @@ In this project we accomplished and structured a working or semiworking game bas
 . Edit Song: This is the same page as the Upload page, but with all the fields prefilled for the song that you want to edit.
 
 . Delete Song: Just a button and a disclaimer that once you delete a song, it will not come back.
-
-**PHP**
-. 
-
-**JS**
-. 

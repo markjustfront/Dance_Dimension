@@ -39,14 +39,9 @@ function updateSongInfo(title) {
     if(song) {
         document.querySelector('.songTitle-child').textContent = song.title;
         document.querySelector('.songAuthor-child').textContent = `by ${song.Author}`;
-        // If you want to show the selected song's image here, uncomment or adapt the following line:
-        // document.querySelector('.song-art').src = song.Art; // Assuming you have an element with class 'song-art'
     }
 }
 
 function playSong(id) {
     window.location.href = `Song_Level/level.php?id=${id}`;
 }
-
-// Initially, we won't display any song information until one is selected
-document.querySelector('.songInfo').style.display = 'none';

@@ -10,14 +10,8 @@ session_start();
     <title>Song List</title>
     <script src="../Song_Select/song_select.js"></script>
 </head>
-<body>
-    <div>
-        <div class="pageHeader">
-            <div class="backarrow" id="backArrow" onclick="location.href = '../Menu/Menu.php';">
-                <button class="button-74 glow">Main Menu</button>
-            </div>
-            <div class="glow">SONGS</div>
-        </div>
+<body class="body" id="BlackBG">
+<button class="button-74 glow" onclick="location.href = '../Menu/Menu.php';">Main Menu</button>
         <div class="songs-songselector" id="songselector">
             <?php
             $json = file_get_contents("../1-Song_Data/song_info.json");

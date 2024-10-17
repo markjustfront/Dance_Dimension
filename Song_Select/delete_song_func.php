@@ -1,8 +1,8 @@
 <?php
-    $songTitle = $_GET["id"];
-    $json = file_get_contents("../DB/songs.json");
+    $songTitle = $_GET["ID"];
+    $json = file_get_contents("../1-Song_Data/song_info.json");
     $json = json_decode($json, true);
-    $ranking = file_get_contents("../DB/ranks.json");
+    $ranking = file_get_contents("../1-Song_Data/scores.json");
     $ranking = json_decode($ranking, true);
     foreach ($json as $key => $value) {
         if ($value["title"] == $songTitle) {
@@ -11,9 +11,8 @@
                     unset($ranking[$k]);
                 }
             }
-            unlink($value["Portrait"]);
+            unlink($value["Art"]);
             unlink($value["SongFile"]);
-            unlink($value["BG"]);
             unlink($value["GameFile"]);
             unset($json[$key]);
             break;
@@ -23,6 +22,6 @@
     $ranking = array_values($ranking);
     $json = json_encode($json);
     $ranking = json_encode($ranking);
-    file_put_contents("../DB/ranks.json", $ranking);
-    file_put_contents("../DB/songs.json", $json);
-    header("Location: songs.php");
+    file_put_contents("../1-Song_Data/scores.json", $ranking);
+    file_put_contents("../1-Song_Data/song_info.json", $json);
+    header("Location: song_list.php");

@@ -7,8 +7,9 @@
     <title>Game</title>
     <script src="Game.js"></script>
 </head>
-<body id="BlackBG">
-    <button class="button-74 glow" onclick="window.location.href='/Menu/Menu.php'">Main Menu</button>
+<body class="body" id="BlackBG">
+<button class="button-74 glow" onclick="window.location.href='/Menu/Menu.php'">Main Menu</button>
+
     <fieldset>
         <div class="glow" id="songselector"></div>
         <div class="songInfo">

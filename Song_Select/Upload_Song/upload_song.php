@@ -9,10 +9,8 @@ session_start();
     <meta charset="UTF-8">
     <title>Upload Song</title>
 </head>
-<body>
-    <div class="backbutton">
+<body class="body" id="BlackBG">
         <button class="button-74 glow" onclick="window.location.href='/Menu/Menu.php'">Main Menu</button>
-    </div>
     <div class="upload-content">
         <fieldset class="altfield">
         <form action="upload_song_func.php" method="post" enctype="multipart/form-data">                <label for="title" class="glow laforme">Title *</label>

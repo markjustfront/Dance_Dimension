@@ -56,8 +56,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         die("Failed to write to scores file.");
     }
 
-    // Assuming song metadata reading and cookie setting remains the same as previously advised
-
     header("Location: ../../Game.php");
     exit;
 } else {

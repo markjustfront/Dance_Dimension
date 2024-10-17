@@ -4,9 +4,6 @@
     margin: 5px;
 }
 
-/* body {
-    overflow:scroll;
-  } */
 
 /* Affects the Uplaod page when disalbed the GFUM 
 and the subsecuents fieldset moves to the right 
@@ -87,6 +84,20 @@ html{
             background-image: url(/2-Web_Assets/BigGreenBG.png);
         }
         /* END OF BACKGROUNDS */
+        #nickname {
+            background: linear-gradient(180deg, #6AFF00, #fff);
+            background-clip: text;
+            color: rgba(0, 0, 0, 0);
+            text-align: left;
+        }
+        
+        #score {
+            background: linear-gradient(180deg, #FFE500, #fff);
+            background-clip: text;
+            color: rgba(0, 0, 0, 0);
+            text-align: right;
+        
+        }
     /* END OF CUSTOM IDs */
 /* END OF GLOBAL FX */
 
@@ -207,15 +218,64 @@ fieldset {
     box-shadow: 0 0 10px antiquewhite;
 }
 
-.arrow {
-    font-family: Computerfont;
-    font-size: 48px;
-    margin: 5px;
+
+
+#startGameContainer {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
 }
 
-#currentArrow {
-    margin-top: 20px;
-    font-size: 72px;
+#gameArea {
+    display: none; /* Initially hidden */
+}
+#gameArea {
+    width: 100%;
+    height: 500px;
+    background: black;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+.key-area {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+}
+.key {
+    font-size: 2em;
+    width: 50px;
+    text-align: center;
+}
+#playbackBar {
+    width: 90%;
+    height: 20px;
+    background-color: grey;
+    margin: 10px;
+}
+#playbackProgress {
+    width: 0%;
+    height: 100%;
+    background-color: green;
+}
+
+.level-pageHeader {
+    margin-top: 1%;
+    margin-left: 2%;
+    width: auto;
+}
+
+.level-backArrow {
+    width: 101px;
+    height: 92px;
+    cursor: pointer;
+    top: 85%;
+    left: 2%;
+    position: absolute;
 }
 /* END OF GAME */
 
@@ -301,93 +361,8 @@ fieldset {
 /* END OF UPLOAD */
 
 /* GAME PAGE */
-#startGameContainer {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 10;
-        }
 
-        /* #startGameButton {
-            padding: 20px 40px;
-            font-size: 24px;
-            cursor: pointer;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 12px;
-            transition: opacity 0.3s;
-        } */
-
-        /* #startGameButton:hover {
-            opacity: 0.8;
-        } */
-
-        #gameArea {
-            display: none; /* Initially hidden */
-        }
-        #gameArea {
-            width: 100%;
-            height: 500px;
-            background: black;
-            color: white;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: space-around;
-        }
-        .key-area {
-            display: flex;
-            justify-content: space-around;
-            width: 100%;
-        }
-        .key {
-            font-size: 2em;
-            width: 50px;
-            text-align: center;
-        }
-        #playbackBar {
-            width: 90%;
-            height: 20px;
-            background-color: grey;
-            margin: 10px;
-        }
-        #playbackProgress {
-            width: 0%;
-            height: 100%;
-            background-color: green;
-        }
-
-        .level-pageHeader {
-            margin-top: 1%;
-            margin-left: 2%;
-            width: auto;
-        }
-        
-        .level-backArrow {
-            width: 101px;
-            height: 92px;
-            cursor: pointer;
-            top: 85%;
-            left: 2%;
-            position: absolute;
-        }
-        
-        /* .playMat {
-            padding: 1%;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            display: grid;
-            grid-template-columns: 25% 25% 25% 25%;
-            grid-template-rows: 100%;
-            background: transparent;
-            width: 40%;
-            min-height: 20%;
-        } */
-        
+/* ARROW MAT */
         .playMat {
             display: flex;
             flex-direction: column;
@@ -406,8 +381,8 @@ fieldset {
         .playMat-row > div {
             width: 80px; /* Width of each key or div */
             height: 80px; /* Height of each key or div */
-            background-color: #333; /* Color of the keys */
-            border: 2px solid #fff;
+            /* background-color: #333;
+            border: 2px solid #fff; */
             border-radius: 5px;
             margin: 5px; /* Space around keys */
             display: flex;
@@ -434,7 +409,20 @@ fieldset {
             margin-top: 10%;
             margin-left: 10%;
         }
+
+        .arrow {
+            font-family: Computerfont;
+            font-size: 48px;
+            margin: 5px;
+        }
         
+        #currentArrow {
+            margin-top: 20px;
+            font-size: 72px;
+        }
+/* END ARROW MAT */
+        
+/* LEVEL SONG REPRESENTATION */
         .gametime {
             position: absolute;
             top: 98%;
@@ -443,10 +431,8 @@ fieldset {
         }
         
         .songPic-image {
-            object-fit: cover;
-            position: absolute;
             height: auto;
-            width: 140px;
+            width: 20%;
         }
         
         .level-songTitle {
@@ -472,27 +458,11 @@ fieldset {
             height: auto;
             text-align: center;
             width: 10%;
-            font-family: "Jersey 25";
             font-size: 48px;
             left: 80%;
             top: 20%;
         }
-        
-        #nickname {
-            background: linear-gradient(180deg, #6AFF00, #fff);
-            background-clip: text;
-            color: rgba(0, 0, 0, 0);
-            text-align: left;
-        }
-        
-        #score {
-            background: linear-gradient(180deg, #FFE500, #fff);
-            background-clip: text;
-            color: rgba(0, 0, 0, 0);
-            text-align: right;
-        
-        }
-        
+
         .song_level {
             width: 100%;
             height: auto;
@@ -527,11 +497,8 @@ fieldset {
             align-items: center;
             padding: 20px;
         }
-        
-        .back-to-menu {
-            align-self: start; /* Aligns the button to the left */
-            margin-bottom: 20px;
-        }
+
+    /* END LEVEL SONG REPRESENTATION */
         
         .playMat {
             order: -1; /* Moves the keys to the top */
@@ -566,4 +533,4 @@ fieldset {
             flex-grow: 1;
             text-align: center;
         }
-        /* END OF GAME PAGE */
+/* END OF GAME PAGE */
