@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         die("Missing required POST data.");
     }
 
-    // Path to your JSON file
+    // Path to JSON file
     $filePath = "../../../1-Song_Data/scores.json";
 
     // Read existing scores or initialize if the file does not exist or is empty

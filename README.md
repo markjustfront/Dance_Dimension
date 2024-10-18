@@ -5,16 +5,19 @@ In this project we accomplished and structured a working or semiworking game bas
 **Web Structure**
 ```bash
 ├── Splash Page
-│  ├── Menu
-│  ├── Song List
-│  │    ├── Play Song
-│  │    ├── Preview
-│  │    ├── Edit Song
-│  │    └── Delete Song
-│  ├── Upload
-│  └── Settings (WIP)
-├── Comments
-└── Leaderboard
+│   ├── Menu
+│   │    ├── Song List
+│   │    │   └── Play Song
+│   │    └── Upload Song
+│   │         ├── Upload Song
+│   │         ├── Edit Song
+│   │         └── Delete Song
+│   ├── Upload
+│   ├── Settings (WIP)
+│   ├── Comments (DEL)
+│   └── Leaderboard
+│       ├── Playable Songs
+│       └── Scores
 ```
 
 **First Level**
