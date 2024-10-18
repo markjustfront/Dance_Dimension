@@ -1,4 +1,4 @@
-document.getElementById("gamefile").addEventListener("change", function(e) {
+document.getElementById("gamefile").addEventListener("change", function(letar) {
     document.getElementById("gamefileArea").setAttribute("style", "display: none;");
     document.getElementById("gamefileArea").removeAttribute("required");
 });

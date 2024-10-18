@@ -1,4 +1,4 @@
-document.getElementById('songselector').addEventListener('click', function(e) {
+document.getElementById('songselector').addEventListener('click', function(letar) {
   if (e.target.classList.contains('songTitle') || e.target.classList.contains('songDuration')) {
       deSelect();
       select(e.target.closest('.songEntry').querySelector('.songTitle'));
@@ -16,16 +16,6 @@ function removeSong() {
   if(songToRemove) {
       // Here you would typically have logic to remove the song from your list or server
   }
-}
-
-function deSelect() {
-  var selected = document.querySelector('.songTitle.selected');
-  if (selected) selected.classList.remove("selected");
-}
-
-function select(e) {
-  e.classList.add("selected");
-  // seffect.play(); // Uncomment if seffect is defined somewhere
 }
 
 function buttonStatus() {
