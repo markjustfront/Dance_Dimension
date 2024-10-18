@@ -2,10 +2,8 @@
 
 include "../gameValidator.php";
 if (!isset($_FILES["gamefile"])) {
-    $valid = gameValidation($_POST["gamefileArea"], $_POST["songDuration"]);
 } else {
     $file = file_get_contents($_FILES["gamefile"]["tmp_name"]);
-    $valid = gameValidation($file, $_POST["songDuration"]);
 }
 if ($valid  == false) {
     header("Location: editsong.php?error=1&title=" . $_POST["title"] . "&author=" . $_POST["author"] . "&id=" . $_POST["ID"]);

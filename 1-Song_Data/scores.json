@@ -1,1 +1,38 @@
-[[{"nickname":"Elon","score":"8450"},{"nickname":"Jeff","score":"7160"},{"nickname":"Warren","score":"3240"},{"nickname":"Jo el inigualable","score":"3680"},{"nickname":"John","score":"3680"}]]
+{
+    "0": [
+        {
+            "nickname": "Elon",
+            "score": "8450"
+        },
+        {
+            "nickname": "Jeff",
+            "score": "7160"
+        },
+        {
+            "nickname": "Warren",
+            "score": "3240"
+        },
+        {
+            "nickname": "Jo el inigualable",
+            "score": "3680"
+        },
+        {
+            "nickname": "John",
+            "score": "3680"
+        }
+    ],
+    "3": [
+        {
+            "nickname": "Kamala",
+            "score": "0"
+        },
+        {
+            "nickname": "Kamala",
+            "score": "1000"
+        },
+        {
+            "nickname": "Paco",
+            "score": "3000"
+        }
+    ]
+}

@@ -28,15 +28,15 @@ function addSongtoList(song, firstOne = false) {
 }
 
 // Function to load rankings on Leaderboard
-function loadRanking(ranks, songs, firstTime = true) {
+function loadScore(scores, songs, firstTime = true) {
     var selected = document.querySelector("p.selected"); // Get the currently selected song
     if (firstTime) {
         // Clone the ranks and songs to globals for later use without modifying original data
-        vGlobRanks = JSON.parse(JSON.stringify(ranks));
+        vGlobRanks = JSON.parse(JSON.stringify(scores));
         vGlobSongs = JSON.parse(JSON.stringify(songs));
     } else {
         // If not the first time, we still clone to prevent modifying global data directly
-        ranks = JSON.parse(JSON.stringify(ranks));
+        scores = JSON.parse(JSON.stringify(scores));
         songs = JSON.parse(JSON.stringify(songs));
     }
     
@@ -50,25 +50,25 @@ function loadRanking(ranks, songs, firstTime = true) {
     }
     
     // Display rankings for the selected song ID
-    Object.entries(ranks).forEach(key => {
+    Object.entries(scores).forEach(key => {
         if (key[0] == id) {
             console.log("FOUND");
-            addRankToList(key[1]);
+            addScoreToList(key[1]);
         }
     });
 }
 
 // Function to refresh the ranking list based on current selection
-function updateRanking() {
-    var table = document.getElementById("rankingList");
-    clearRankingTable(table);
-    loadRanking(vGlobRanks, vGlobSongs, false); // false indicates this is not the first load
+function updateScore() {
+    var table = document.getElementById("scoreList");
+    clearScoreTable(table);
+    loadScore(vGlobRanks, vGlobSongs, false); // false indicates this is not the first load
 }
 
 // Function to add rankings to the ranking list table
-function addRankToList(rank) {
-    for (let i = 0; i < rank.length; i++) {
-        var table = document.getElementById("rankingList");
+function addScoreToList(score) {
+    for (let i = 0; i < score.length; i++) {
+        var table = document.getElementById("scoreList");
         var row = table.insertRow(-1); // Add new row to the end
         var nicknameCell = row.insertCell(0);
         var scoreCell = row.insertCell(1);
@@ -76,14 +76,14 @@ function addRankToList(rank) {
         if (i >= 0) { // Note: There's a typo in the original condition. It should probably be `i >= 0` to affect all rows
             nicknameCell.setAttribute("id", "nickname");
             scoreCell.setAttribute("id", "score");
-            nicknameCell.innerHTML = rank[i].nickname;
-            scoreCell.innerHTML = rank[i].score;
+            nicknameCell.innerHTML = score[i].nickname;
+            scoreCell.innerHTML = score[i].score;
         }
     }
 }
 
 // Function to clear the existing rankings from the table
-function clearRankingTable(table) {
+function clearScoreTable(table) {
     var rows = table.rows;
     for (let i = rows.length - 1; i > 0; i--) {
         table.deleteRow(i); // Leave the header row (if any) intact by starting from the last child
