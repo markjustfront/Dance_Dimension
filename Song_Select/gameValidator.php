@@ -42,12 +42,6 @@ function gameValidation($gameFile, $songDuration) {
             throw new Exception("Nombre de fletxes incorrecte");
         }
         $linies = json_encode($linies);
-
-
-        //PHP 8.3 no compatible amb el servidor
-        /* if (json_validate($linies) == false) {
-            throw new Exception("JSON no vàlid");
-        } */
         return true;
 
 

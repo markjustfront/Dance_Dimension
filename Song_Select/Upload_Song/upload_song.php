@@ -12,21 +12,22 @@ session_start();
 <body class="body" id="BlackBG">
         <button class="button-74 glow" onclick="window.location.href='/Menu/Menu.php'">Main Menu</button>
     <div class="upload-content">
-        <fieldset class="altfield">
-        <form action="upload_song_func.php" method="post" enctype="multipart/form-data">                <label for="title" class="glow laforme">Title *</label>
+        <fieldset class="altfield glow">
+        <form action="upload_song_func.php" method="post" enctype="multipart/form-data">                
+            <label for="title" class="glow ">Title</label>
                 <input type="text" id="title" name="title" placeholder="Computer World" required/>
 
-                <label for="author" class="glow laforme">Author</label>
+                <label for="author" class="glow ">Author</label>
                 <input type="text" id="author" name="author" placeholder="Kraftwerk" required/>
 
-                <label for="songfile" class="glow laforme">Song File (MP3)</label>
+                <label for="songfile" class="glow ">Song File (MP3)</label>
                 <input type="file" id="songfile" name="songfile" accept=".mp3" required>
 
-                <label for="Art" class="glow laforme">Art</label>
+                <label for="Art" class="glow ">Art</label>
                 <input type="file" id="art" name="art" accept="jpg/png" required/>
 
                 <!-- Game File Upload Method Selection -->
-                <label class="glow laforme">Game File Upload Method</label>
+                <label class="glow ">Game File Upload Method</label>
                 <div>
                     <input type="radio" id="fileUpload" name="uploadMethod" value="file" onclick="showField('file')" required>
                     <label for="fileUpload" class="glow">File Upload</label>
@@ -41,11 +42,11 @@ session_start();
 
                 <!-- Text Entry Field -->
                 <div id="textField" style="display:none;">
-                    <label for="gamefileArea" class="glow laforme">Game File Content</label>
+                    <label for="gamefileArea" class="glow ">Game File Content</label>
                     <textarea id="gamefileArea" name="gamefileArea" placeholder="Enter game file content here..."></textarea>
                 </div>
 
-                <input type="hidden" name="songDuration" id="songDuration" value="0"> <!-- or a dynamic value -->
+                <input type="hidden" name="songDuration" id="songDuration" value="0">
 
                 <button type="submit" class="button-74 glow">Submit</button>
             </form>

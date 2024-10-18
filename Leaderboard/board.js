@@ -14,7 +14,7 @@ function loadSongs(songs) {
     }
 }
 
-// Function to add a song to the list with an option to mark it as selected
+// Function to add a song to the list on Leaderboard
 function addSongtoList(song, firstOne = false) {
     var songName = song.title;
     var newElement = document.createElement("p");
@@ -27,7 +27,7 @@ function addSongtoList(song, firstOne = false) {
     }
 }
 
-// Function to load rankings for the selected song
+// Function to load rankings on Leaderboard
 function loadRanking(ranks, songs, firstTime = true) {
     var selected = document.querySelector("p.selected"); // Get the currently selected song
     if (firstTime) {

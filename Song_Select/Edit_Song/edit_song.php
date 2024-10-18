@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 
@@ -10,7 +9,7 @@
     <script src="editsong.js"></script>
 </head>
 
-<body class="body">
+<body class="body" id="BlackBG">
     <?php
     // Display error message if an error parameter is set in the URL
     if (isset($_GET["error"])) {
@@ -22,8 +21,8 @@
         
     }
     ?>
-    <div class="addForm">
-        <fieldset class="glow">
+    <div class="">
+        <fieldset class=" glow">
         <form action="songEditFunction.php" method="post" id="EditForm" enctype="multipart/form-data">
             <label for="songfile">Song file</label>
             <input type="file" id="songfile" name="songfile" accept="audio/mp3" required>
@@ -60,10 +59,11 @@
             ?>
             <input type="hidden" name="songDuration" id="songDuration" value="<?php echo $d; ?>">
             <script src="../song_ticktack.js"></script>
-            <input type="submit" value="Submit"> 
+            <button type="submit" value="Submit" class="glow button-74"> Submit</button>
         </form>
-        <button class="button-74 glow" onclick="location.href = '../song_list.php'">Song List</button>
         </fieldset>
+        <button class="button-74 glow" onclick="location.href = '../song_list.php'">Song List</button>
+
     </div>
 </body>
 

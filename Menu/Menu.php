@@ -12,7 +12,7 @@
             <div class="">
                 <button class="button-74 glow" onclick="window.location.href='../Game/Game.php'">Begin</button>
                 <button class="button-74 glow" onclick="window.location.href='../Song_Select/song_list.php'">Upload Music</button>
-                <button class="button-74 glow" onclick="window.location.href='../Leaderboard/Board.php'"> Leaderboard</button>
+                <button class="button-74 glow" onclick="window.location.href='../Leaderboard/board.php'"> Leaderboard</button>
             </div>
         </fieldset>
 </body>

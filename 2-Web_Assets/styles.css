@@ -84,20 +84,6 @@ html{
             background-image: url(/2-Web_Assets/BigGreenBG.png);
         }
         /* END OF BACKGROUNDS */
-        #nickname {
-            background: linear-gradient(180deg, #6AFF00, #fff);
-            background-clip: text;
-            color: rgba(0, 0, 0, 0);
-            text-align: left;
-        }
-        
-        #score {
-            background: linear-gradient(180deg, #FFE500, #fff);
-            background-clip: text;
-            color: rgba(0, 0, 0, 0);
-            text-align: right;
-        
-        }
     /* END OF CUSTOM IDs */
 /* END OF GLOBAL FX */
 
@@ -149,6 +135,16 @@ html{
 
 /* TEXTAREAS AN FIELDSETS */
 textarea{
+    width: 150px;
+    background-color: antiquewhite;
+    border-color: antiquewhite;
+    box-shadow: 
+        0 0 7px #c2d3be,
+        0 0 10px #99b495,
+        0 0 21px #8aa892;
+}
+
+.textarea{
     width: 150px;
     background-color: antiquewhite;
     border-color: antiquewhite;
@@ -453,14 +449,22 @@ fieldset {
             font-size: 50px;
         }
         
+        .score-fieldset {
+            width: auto; 
+            display: inline-block; /* Allows for better control over its size and positioning */
+            margin: 10px;
+        }
+        
         .score {
-            position: absolute;
-            height: auto;
+            font-family: Computerfont; 
+            font-size: 18px; 
             text-align: center;
-            width: 10%;
-            font-size: 48px;
-            left: 80%;
-            top: 20%;
+            color: antiquewhite; 
+            text-shadow: 
+                0 0 7px #c2d3be,
+                0 0 10px #99b495,
+                0 0 21px #8aa892; 
+            padding: 10px 0;
         }
 
         .song_level {

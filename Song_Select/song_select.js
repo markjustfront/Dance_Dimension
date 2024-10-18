@@ -51,3 +51,9 @@ function buttonStatus() {
       removeButton.onclick = null;
   }
 }
+function removeSong() {
+  var songToRemove = getSelected();
+  if(songToRemove) {
+    deleteSong();
+  }
+}

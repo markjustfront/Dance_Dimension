@@ -7,7 +7,7 @@
     <title>Game</title>
     <script src="Game.js"></script>
 </head>
-<body class="body" id="BlackBG">
+<body class="laforme" id="BlackBG">
 <button class="button-74 glow" onclick="window.location.href='/Menu/Menu.php'">Main Menu</button>
 
     <fieldset>

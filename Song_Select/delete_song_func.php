@@ -25,3 +25,15 @@
     file_put_contents("../1-Song_Data/scores.json", $ranking);
     file_put_contents("../1-Song_Data/song_info.json", $json);
     header("Location: song_list.php");
+    ?>
+
+<script>
+function deleteSong() {
+    var selectedSongTitle = getSelected();
+    if (selectedSongTitle) {
+        location.href = './delete_song_func.php?ID=' + encodeURIComponent(selectedSongTitle);
+    } else {
+        alert('No song selected');
+    }
+}
+</script>

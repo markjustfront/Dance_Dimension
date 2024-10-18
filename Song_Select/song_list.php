@@ -29,8 +29,7 @@ session_start();
             <button class="button-74 glow" onclick="location.href = './Upload_Song/upload_song.php'">Upload Song</button>
             </div>
             <button id="edit" class="button-74 glow" onclick="location.href = './Edit_Song/edit_song.php'">Edit</button>
-            <button id="remove" class="button-74 glow" onclick="location.href = './delete_song_func.php'">Delete</button>
-        </div>
+<button id="remove" class="button-74 glow" onclick="deleteSong()">Delete</button>        </div>
     </div>
     <script src="song_select.js"></script>
 </body>

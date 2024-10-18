@@ -5,16 +5,24 @@ ini_set('display_errors', 1);
 ob_start(); 
 include "../gameValidator.php";
 
+// Substitueix el teu codi existent aquí amb el següent bloc:
 if (!isset($_FILES["songfile"])) {
     $valid = gameValidation($_POST["gamefileArea"], $_POST["songDuration"]);
 } else {
-    $valid = gameValidation(file_get_contents($_FILES["gamefile"]["tmp_name"]), $_POST["songDuration"]);
+    if ($_POST['uploadMethod'] == 'file' && isset($_FILES["gamefile"]) && $_FILES["gamefile"]["error"] == UPLOAD_ERR_OK) {
+        $gameFileContent = file_get_contents($_FILES["gamefile"]["tmp_name"]);
+        if ($gameFileContent === false) {
+            die('Could not read the game file.');
+        }
+        $valid = gameValidation($gameFileContent, $_POST["songDuration"]);
+    } elseif ($_POST['uploadMethod'] == 'text') {
+        $valid = gameValidation($_POST["gamefileArea"], $_POST["songDuration"]);
+    } else {
+        // Pot ser necessari manejar el cas on no s'ha seleccionat ni fitxer ni text
+        die('No game file method selected or file upload failed.');
+    }
 }
 
-if ($valid == false) {
-    header("Location: upload_song.php?error=1&title=" . $_POST["title"] . "&author=" . $_POST["author"]);
-    exit();
-}
 
 $uniq = uniqid();
 

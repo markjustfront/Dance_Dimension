@@ -47,7 +47,6 @@ foreach ($json as $key => $value) {
             "Author" => $edited["Author"],
             "Portrait" => $portraitfileDir,
             "SongFile" => $songfileDir,
-            "BG" => $bgvideoDir,
             "GameFile" => $gamefileDir,
             "ID" => $edited["ID"]
         ];
