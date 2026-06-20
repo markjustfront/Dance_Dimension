@@ -6,4 +6,4 @@ function Redirect($url, $permanent = false)
     exit();
 }
 
-Redirect('/Splash.html', false);
+Redirect('../Splash.html', false);

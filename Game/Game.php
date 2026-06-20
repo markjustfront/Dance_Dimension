@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" type="text/css" href="/2-Web_Assets/styles.css">
-    <link rel="icon" type="image/png" href="/2-Web_Assets/The Dance Dimension.png">
+    <link rel="stylesheet" type="text/css" href="../2-Web_Assets/styles.css">
+    <link rel="icon" type="image/png" href="../2-Web_Assets/The Dance Dimension.png">
     <meta charset="UTF-8">
     <title>Game</title>
     <script src="Game.js"></script>
