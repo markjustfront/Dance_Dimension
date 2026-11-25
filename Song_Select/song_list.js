@@ -1,4 +1,4 @@
-let vGlobJson;
+let vGlobJson = [];
 
 function loadSongs(songs) {
     if (!Array.isArray(songs)) {
@@ -6,36 +6,43 @@ function loadSongs(songs) {
         return;
     }
     vGlobJson = songs;
-    songs.forEach(addSongtoList);
+    const list = document.getElementById('songselector');
+    if (!list) {
+        return;
+    }
+    list.innerHTML = '';
+    songs.forEach(function (song, index) {
+        addSongtoList(song, index === 0);
+    });
+    if (typeof buttonStatus === 'function') {
+        buttonStatus();
+    }
 }
 
-function addSongtoList(song, firstOne = false) {
-    let songName = song.title || 'Song Title Not Available';
-    let duration = song.duration ? parseInt(song.duration, 10) : 0;
-    let minutes = Math.floor(duration / 60);
-    let seconds = duration % 60;
-    seconds = seconds < 10 ? '0' + seconds : seconds;
-    let formattedDuration = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+function addSongtoList(song, firstOne) {
+    const duration = song.duration ? parseInt(song.duration, 10) : 0;
+    const minutes = Math.floor(duration / 60);
+    const seconds = duration % 60;
+    const formattedDuration = minutes + ':' + String(seconds).padStart(2, '0');
 
-    let container = document.createElement("div");
-    container.className = "songEntry";
+    const container = document.createElement('button');
+    container.type = 'button';
+    container.className = 'songEntry';
+    container.dataset.id = String(song.ID);
 
-    let songNameElement = document.createElement("p");
-    songNameElement.id = "song";
-    songNameElement.className = "songTitle";
-    songNameElement.textContent = songName;
-    
-    let songDurationElement = document.createElement("p");
-    songDurationElement.id = "duration";
-    songDurationElement.className = "songDuration";
+    const songNameElement = document.createElement('span');
+    songNameElement.className = 'songTitle';
+    songNameElement.textContent = song.title || 'Untitled';
+
+    const songDurationElement = document.createElement('span');
+    songDurationElement.className = 'songDuration';
     songDurationElement.textContent = formattedDuration;
 
     container.appendChild(songNameElement);
     container.appendChild(songDurationElement);
-
-    document.getElementById("songselector").appendChild(container);
+    document.getElementById('songselector').appendChild(container);
 
     if (firstOne) {
-        songNameElement.classList.add("selected");
+        container.classList.add('selected');
     }
 }

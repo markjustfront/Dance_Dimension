@@ -36,7 +36,7 @@ body.dark-theme a {
 /* FONTS */
 @font-face {
     font-family: Computerfont;
-    src: url(/2-Web_Assets/Fonts/Computerfont.ttf);
+    src: url(Fonts/Computerfont.ttf);
     font-weight: bold;
 }
 /* END OF FONTS */
@@ -73,7 +73,7 @@ html{
     /* CUSTOM IDs */
         /* BACKGROUNDS */
         #BlackBG{
-            background-image: url(/2-Web_Assets/ABlackBG.png);
+            background-image: url(ABlackBG.png);
         }
 
         #loadBG{
@@ -81,7 +81,7 @@ html{
         }   
 
         #computerBG{
-            background-image: url(/2-Web_Assets/BigGreenBG.png);
+            background-image: url(BigGreenBG.png);
         }
         /* END OF BACKGROUNDS */
     /* END OF CUSTOM IDs */
@@ -125,12 +125,7 @@ html{
     100% { filter: brightness(50%); }
 }
 
-.breathing-image {
-    width: auto;
-    height: 200px;
-    background: url(/2-Web_Assets/Short-The_Dance_Dimension.png) no-repeat center center;
-    animation: breathe 2s infinite ease-in-out;
-}
+/* .breathing-image rules moved to ENTRY / NAV */
 /* END OF SPALSH PAGE */
 
 /* TEXTAREAS AN FIELDSETS */
@@ -172,7 +167,7 @@ fieldset {
     border-width: 5px;
     border-color: antiquewhite;
     
-    background-image: url(/2-Web_Assets/BigGreenBG.png);
+    background-image: url(BigGreenBG.png);
     background-repeat: no-repeat;
     box-shadow: 
         0 0 7px #c2d3be,
@@ -195,7 +190,7 @@ fieldset {
     border-radius: 5px;
     border-width: 5px;
     border-color: antiquewhite;
-    background-image: url(/2-Web_Assets/ComputerBG.png);
+    background-image: url(ComputerBG.png);
     background-repeat: no-repeat;
     box-shadow: 
         0 0 7px #c2d3be,
@@ -346,7 +341,7 @@ fieldset {
 /* UPLOAD */
     /* Dummy file for the image of the song */
     .DummyBlock{
-        background-image: url(/2-Web_Assets/Dummy_File.png);
+        background-image: url(Dummy_File.png);
         margin: auto;
         border: antiquewhite;
         border-width: 5px;
@@ -484,7 +479,7 @@ fieldset {
             border-width: 5px;
             border-color: antiquewhite;
             
-            background-image: url(/2-Web_Assets/BigGreenBG.png);
+            background-image: url(BigGreenBG.png);
             background-repeat: no-repeat;
             box-shadow: 
                 0 0 7px #c2d3be,
@@ -505,7 +500,6 @@ fieldset {
     /* END LEVEL SONG REPRESENTATION */
         
         .playMat {
-            order: -1; /* Moves the keys to the top */
             width: 100%;
             margin-bottom: 20px;
         }
@@ -538,3 +532,216 @@ fieldset {
             text-align: center;
         }
 /* END OF GAME PAGE */
+
+
+/* ENTRY / NAV */
+.splash-page {
+    min-height: 100vh;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    background-color: #000;
+}
+.breathing-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: auto;
+    background: none;
+}
+.breathing-image img {
+    height: 200px;
+    width: auto;
+    max-width: 90vw;
+    animation: breathe 2s infinite ease-in-out;
+}
+.splash-actions {
+    margin: 0;
+}
+.nav-row {
+    margin: 10px;
+}
+a.button-74 {
+    display: inline-block;
+    text-decoration: none;
+    color: inherit;
+    box-sizing: border-box;
+}
+.menu-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.page {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+
+/* RESPONSIVE / A11Y */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+.error {
+    color: #ffb4b4;
+    text-align: center;
+}
+
+.board-layout,
+.modifyButtons,
+.songs-songselector {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.songEntry,
+.song-pick {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    width: 100%;
+    max-width: 280px;
+    margin: 4px auto;
+    padding: 8px 12px;
+    background: transparent;
+    border: 2px solid antiquewhite;
+    color: antiquewhite;
+    font-family: Computerfont, sans-serif;
+    cursor: pointer;
+}
+
+.songEntry.selected,
+.song-pick.selected,
+.song-item.selected {
+    background: rgba(255, 255, 255, 0.18);
+    outline: 2px solid antiquewhite;
+}
+
+.song-item-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+#playMat .pad {
+    width: 80px;
+    height: 80px;
+    margin: 5px;
+    border: 2px solid antiquewhite;
+    background: rgba(0, 0, 0, 0.35);
+    cursor: pointer;
+    position: relative;
+    touch-action: manipulation;
+}
+
+#playMat .pad .arrow {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.songPic-image {
+    width: 120px;
+    max-width: 40vw;
+    height: auto;
+}
+
+.gametime {
+    height: 8px;
+    width: 0;
+    max-width: 100%;
+    background: antiquewhite;
+    margin: 8px 0;
+}
+
+fieldset {
+    float: none;
+    width: min(280px, 100%);
+    max-width: 100%;
+    padding: 12px;
+}
+
+.upload-content fieldset,
+fieldset.inner {
+    width: min(420px, 100%);
+}
+
+fieldset.inner {
+    background-image: none;
+    box-shadow: none;
+    margin: 12px 0;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="file"],
+textarea {
+    max-width: 100%;
+}
+
+button:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+.body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    height: auto;
+    min-height: 100vh;
+    overflow: auto;
+    padding: 12px 0 32px;
+}
+.page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+.nav-row {
+    align-self: flex-start;
+}
+
+@media (max-width: 700px) {
+    .board-layout {
+        flex-direction: column;
+        align-items: center;
+    }
+    .breathing-image img {
+        height: 140px;
+    }
+    .button-74 {
+        width: min(180px, 90vw);
+    }
+    #playMat .pad {
+        width: 72px;
+        height: 72px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .breathing-image img,
+    .breathing-image {
+        animation: none;
+    }
+}

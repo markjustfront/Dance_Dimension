@@ -1,17 +1,31 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const fileUpload = document.getElementById('fileUpload');
     const textUpload = document.getElementById('textUpload');
-
-    fileUpload.onchange = function() {
-        showField('file');
-    };
-
-    textUpload.onchange = function() {
-        showField('text');
-    };
-
-    function showField(type) {
-        document.getElementById('fileField').style.display = type === 'file' ? 'block' : 'none';
-        document.getElementById('textField').style.display = type === 'text' ? 'block' : 'none';
+    if (!fileUpload || !textUpload) {
+        return;
     }
+    function showField(type) {
+        const fileField = document.getElementById('fileField');
+        const textField = document.getElementById('textField');
+        const gamefile = document.getElementById('gamefile');
+        const area = document.getElementById('gamefileArea');
+        if (fileField) {
+            fileField.hidden = type !== 'file';
+        }
+        if (textField) {
+            textField.hidden = type !== 'text';
+        }
+        if (gamefile) {
+            gamefile.required = type === 'file';
+        }
+        if (area) {
+            area.required = type === 'text';
+        }
+    }
+    fileUpload.addEventListener('change', function () {
+        showField('file');
+    });
+    textUpload.addEventListener('change', function () {
+        showField('text');
+    });
 });

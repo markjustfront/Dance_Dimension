@@ -1,91 +1,82 @@
-// Global variables to hold rankings and songs data
-var vGlobRanks = "";
-var vGlobSongs = "";
+var vGlobRanks = {};
+var vGlobSongs = [];
 
-// Function to load all songs into a list
 function loadSongs(songs) {
-    for (let i = 0; i < songs.length; i++) {
-        // The first song added will be marked as selected by default
-        if (i == 0) {
-            addSongtoList(songs[i], true);
-        } else {
-            addSongtoList(songs[i]);
+    const list = document.getElementById('songselector');
+    if (!list || !Array.isArray(songs)) {
+        return;
+    }
+    list.innerHTML = '';
+    songs.forEach(function (song, index) {
+        addSongtoList(song, index === 0);
+    });
+    list.addEventListener('click', function (event) {
+        const item = event.target.closest('.song-pick');
+        if (!item) {
+            return;
         }
-    }
-}
-
-// Function to add a song to the list on Leaderboard
-function addSongtoList(song, firstOne = false) {
-    var songName = song.title;
-    var newElement = document.createElement("p");
-    newElement.id = "song"; // Each song gets an ID of 'song'
-    var songNameNode = document.createTextNode(songName);
-    newElement.appendChild(songNameNode);
-    document.getElementById("songselector").appendChild(newElement);
-    if (firstOne) {
-        newElement.className = "selected"; // Mark as selected if it's the first or specified
-    }
-}
-
-// Function to load rankings on Leaderboard
-function loadScore(scores, songs, firstTime = true) {
-    var selected = document.querySelector("p.selected"); // Get the currently selected song
-    if (firstTime) {
-        // Clone the ranks and songs to globals for later use without modifying original data
-        vGlobRanks = JSON.parse(JSON.stringify(scores));
-        vGlobSongs = JSON.parse(JSON.stringify(songs));
-    } else {
-        // If not the first time, we still clone to prevent modifying global data directly
-        scores = JSON.parse(JSON.stringify(scores));
-        songs = JSON.parse(JSON.stringify(songs));
-    }
-    
-    var id;
-    // Find the ID of the selected song
-    for (let i = 0; i < songs.length; i++) {
-        if (selected.textContent == songs[i].title) {
-            id = songs[i].ID;
-            break;
-        }
-    }
-    
-    // Display rankings for the selected song ID
-    Object.entries(scores).forEach(key => {
-        if (key[0] == id) {
-            console.log("FOUND");
-            addScoreToList(key[1]);
-        }
+        list.querySelectorAll('.song-pick.selected').forEach(function (el) {
+            el.classList.remove('selected');
+        });
+        item.classList.add('selected');
+        updateScore();
     });
 }
 
-// Function to refresh the ranking list based on current selection
+function addSongtoList(song, firstOne) {
+    const el = document.createElement('button');
+    el.type = 'button';
+    el.className = 'song-pick' + (firstOne ? ' selected' : '');
+    el.dataset.id = String(song.ID);
+    el.textContent = song.title || 'Untitled';
+    document.getElementById('songselector').appendChild(el);
+}
+
+function loadScore(scores, songs, firstTime) {
+    if (firstTime !== false) {
+        vGlobRanks = JSON.parse(JSON.stringify(scores || {}));
+        vGlobSongs = JSON.parse(JSON.stringify(songs || []));
+    }
+    const selected = document.querySelector('.song-pick.selected');
+    if (!selected) {
+        return;
+    }
+    const id = selected.dataset.id;
+    const rows = (vGlobRanks && vGlobRanks[id]) ? vGlobRanks[id].slice() : [];
+    rows.sort(function (a, b) {
+        return Number(b.score) - Number(a.score);
+    });
+    addScoreToList(rows);
+}
+
 function updateScore() {
-    var table = document.getElementById("scoreList");
-    clearScoreTable(table);
-    loadScore(vGlobRanks, vGlobSongs, false); // false indicates this is not the first load
+    const table = document.getElementById('scoreList');
+    if (table) {
+        table.innerHTML = '';
+    }
+    loadScore(vGlobRanks, vGlobSongs, false);
 }
 
-// Function to add rankings to the ranking list table
-function addScoreToList(score) {
-    for (let i = 0; i < score.length; i++) {
-        var table = document.getElementById("scoreList");
-        var row = table.insertRow(-1); // Add new row to the end
-        var nicknameCell = row.insertCell(0);
-        var scoreCell = row.insertCell(1);
-        
-        if (i >= 0) { // Note: There's a typo in the original condition. It should probably be `i >= 0` to affect all rows
-            nicknameCell.setAttribute("id", "nickname");
-            scoreCell.setAttribute("id", "score");
-            nicknameCell.innerHTML = score[i].nickname;
-            scoreCell.innerHTML = score[i].score;
-        }
+function addScoreToList(entries) {
+    const table = document.getElementById('scoreList');
+    if (!table) {
+        return;
     }
-}
-
-// Function to clear the existing rankings from the table
-function clearScoreTable(table) {
-    var rows = table.rows;
-    for (let i = rows.length - 1; i > 0; i--) {
-        table.deleteRow(i); // Leave the header row (if any) intact by starting from the last child
+    const header = table.createTHead();
+    const headRow = header.insertRow();
+    headRow.insertCell().textContent = 'Player';
+    headRow.insertCell().textContent = 'Score';
+    const body = table.createTBody();
+    if (!entries.length) {
+        const empty = body.insertRow();
+        const cell = empty.insertCell();
+        cell.colSpan = 2;
+        cell.textContent = 'No scores yet';
+        return;
     }
+    entries.forEach(function (entry) {
+        const row = body.insertRow();
+        row.insertCell().textContent = entry.nickname || '';
+        row.insertCell().textContent = entry.score || '0';
+    });
 }
