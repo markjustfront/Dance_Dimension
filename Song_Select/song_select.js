@@ -1,49 +1,79 @@
-document.getElementById('songselector').addEventListener('click', function(letar) {
-  if (e.target.classList.contains('songTitle') || e.target.classList.contains('songDuration')) {
-      deSelect();
-      select(e.target.closest('.songEntry').querySelector('.songTitle'));
-      buttonStatus();
-  }
+document.addEventListener('DOMContentLoaded', function () {
+    const list = document.getElementById('songselector');
+    if (list) {
+        list.addEventListener('click', function (event) {
+            const entry = event.target.closest('.songEntry');
+            if (!entry) {
+                return;
+            }
+            deSelect();
+            select(entry);
+            buttonStatus();
+        });
+    }
+    const editButton = document.getElementById('edit');
+    const removeButton = document.getElementById('remove');
+    if (editButton) {
+        editButton.addEventListener('click', function () {
+            const id = getSelectedId();
+            if (!id) {
+                return;
+            }
+            const prefix = typeof DD_PREFIX === 'string' ? DD_PREFIX : '../';
+            window.location.href = prefix + 'Song_Select/Edit_Song/edit_song.php?id=' + encodeURIComponent(id);
+        });
+    }
+    if (removeButton) {
+        removeButton.addEventListener('click', deleteSong);
+    }
+    buttonStatus();
 });
 
-function getSelected() {
-  var selected = document.querySelector('.songTitle.selected');
-  return selected ? selected.textContent : '';
+function deSelect() {
+    document.querySelectorAll('.songEntry.selected').forEach(function (el) {
+        el.classList.remove('selected');
+    });
 }
 
-function removeSong() {
-  var songToRemove = getSelected();
-  if(songToRemove) {
-      // Here you would typically have logic to remove the song from your list or server
-  }
+function select(entry) {
+    entry.classList.add('selected');
+}
+
+function getSelectedId() {
+    const selected = document.querySelector('.songEntry.selected');
+    return selected ? selected.dataset.id : '';
+}
+
+function getSelectedTitle() {
+    const selected = document.querySelector('.songEntry.selected .songTitle');
+    return selected ? selected.textContent : '';
 }
 
 function buttonStatus() {
-  var selected = getSelected();
-  var editButton = document.getElementById("edit");
-  var removeButton = document.getElementById("remove");
-  
-  if (selected) {
-      console.log("Enable");
-      editButton.className = "button-74 glow editButtonEnabled";
-      editButton.onclick = function() {
-          location.href = "./Edit_Song/edit_song.php?id=" + encodeURIComponent(selected);
-      };
-      removeButton.className = "button-74 glow removeButtonEnabled";
-      removeButton.onclick = function() {
-          location.href = "delete_song_func.php?id=" + encodeURIComponent(selected);
-      };
-  } else {
-      console.log("Disabled");
-      editButton.className = "button-74 glow";
-      editButton.onclick = null;
-      removeButton.className = "button-74 glow";
-      removeButton.onclick = null;
-  }
+    const selected = getSelectedId();
+    const editButton = document.getElementById('edit');
+    const removeButton = document.getElementById('remove');
+    const enabled = Boolean(selected);
+    if (editButton) {
+        editButton.disabled = !enabled;
+        editButton.classList.toggle('editButtonEnabled', enabled);
+    }
+    if (removeButton) {
+        removeButton.disabled = !enabled;
+        removeButton.classList.toggle('removeButtonEnabled', enabled);
+    }
 }
-function removeSong() {
-  var songToRemove = getSelected();
-  if(songToRemove) {
-    deleteSong();
-  }
+
+function deleteSong() {
+    const id = getSelectedId();
+    const title = getSelectedTitle() || 'this song';
+    if (!id) {
+        window.alert('No song selected');
+        return;
+    }
+    if (!window.confirm('Delete "' + title + '"? This cannot be undone.')) {
+        return;
+    }
+    const prefix = typeof DD_PREFIX === 'string' ? DD_PREFIX : '../';
+    window.location.href = prefix + 'Song_Select/delete_song_func.php?id=' + encodeURIComponent(id);
 }

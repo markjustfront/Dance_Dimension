@@ -1,39 +1,46 @@
 <?php
-    $songTitle = $_GET["ID"];
-    $json = file_get_contents("../1-Song_Data/song_info.json");
-    $json = json_decode($json, true);
-    $ranking = file_get_contents("../1-Song_Data/scores.json");
-    $ranking = json_decode($ranking, true);
-    foreach ($json as $key => $value) {
-        if ($value["title"] == $songTitle) {
-            foreach ($ranking as $k => $v) {
-                if ($k == $value["ID"]) {
-                    unset($ranking[$k]);
-                }
-            }
-            unlink($value["Art"]);
-            unlink($value["SongFile"]);
-            unlink($value["GameFile"]);
-            unset($json[$key]);
-            break;
-        }
-    }
-    $json = array_values($json);
-    $ranking = array_values($ranking);
-    $json = json_encode($json);
-    $ranking = json_encode($ranking);
-    file_put_contents("../1-Song_Data/scores.json", $ranking);
-    file_put_contents("../1-Song_Data/song_info.json", $json);
-    header("Location: song_list.php");
-    ?>
+require dirname(__DIR__) . '/common.php';
+dd_require_write('Song_Select/song_list.php');
 
-<script>
-function deleteSong() {
-    var selectedSongTitle = getSelected();
-    if (selectedSongTitle) {
-        location.href = './delete_song_func.php?ID=' + encodeURIComponent(selectedSongTitle);
-    } else {
-        alert('No song selected');
+$idParam = (string) ($_GET['id'] ?? $_GET['ID'] ?? '');
+if ($idParam === '') {
+    dd_redirect('Song_Select/song_list.php');
+}
+
+$songs = dd_load_songs();
+$found = null;
+$remain = [];
+foreach ($songs as $song) {
+    $idMatch = (string) ($song['ID'] ?? '') === $idParam;
+    $titleMatch = (string) ($song['title'] ?? '') === $idParam;
+    if ($found === null && ($idMatch || $titleMatch)) {
+        $found = $song;
+        continue;
+    }
+    $remain[] = $song;
+}
+
+if ($found === null) {
+    dd_redirect('Song_Select/song_list.php');
+}
+
+foreach (['Art', 'SongFile', 'GameFile'] as $key) {
+    $rel = (string) ($found[$key] ?? '');
+    if ($rel !== '' && strpos($rel, '1-Song_Data/') === 0 && is_file(dd_fs($rel))) {
+        @unlink(dd_fs($rel));
     }
 }
-</script>
+
+$scores = dd_load_scores();
+$scoreKey = (string) ($found['ID'] ?? '');
+if ($scoreKey !== '' && isset($scores[$scoreKey])) {
+    unset($scores[$scoreKey]);
+}
+
+if (!dd_save_json('1-Song_Data/song_info.json', $remain) || !dd_save_scores($scores)) {
+    http_response_code(500);
+    echo 'Could not update the library. The server may not have write access.';
+    exit;
+}
+
+dd_redirect('Song_Select/song_list.php');

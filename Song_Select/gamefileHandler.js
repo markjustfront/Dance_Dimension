@@ -1,8 +1,12 @@
-document.getElementById("gamefile").addEventListener("change", function(letar) {
-    document.getElementById("gamefileArea").setAttribute("style", "display: none;");
-    document.getElementById("gamefileArea").removeAttribute("required");
-});
-document.getElementById("gamefileArea").addEventListener("click", function() {
-    document.getElementById("gamefile").setAttribute("type", "hidden");
-    document.getElementById("gamefile").removeAttribute("required");
+document.addEventListener('DOMContentLoaded', function () {
+    const gamefile = document.getElementById('gamefile');
+    const area = document.getElementById('gamefileArea');
+    if (!gamefile || !area) {
+        return;
+    }
+    gamefile.addEventListener('change', function () {
+        if (gamefile.files && gamefile.files.length) {
+            area.removeAttribute('required');
+        }
+    });
 });

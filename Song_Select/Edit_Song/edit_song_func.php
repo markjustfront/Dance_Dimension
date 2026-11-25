@@ -1,67 +1,115 @@
 <?php
+require dirname(__DIR__, 2) . '/common.php';
+dd_require_write('Song_Select/song_list.php');
 
-include "../gameValidator.php";
-if (!isset($_FILES["gamefile"])) {
-} else {
-    $file = file_get_contents($_FILES["gamefile"]["tmp_name"]);
-}
-if ($valid  == false) {
-    header("Location: editsong.php?error=1&title=" . $_POST["title"] . "&author=" . $_POST["author"] . "&id=" . $_POST["ID"]);
-    exit();
+if (($_SERVER['REQUEST_METHOD'] ?? '') !== 'POST') {
+    http_response_code(405);
+    echo 'Invalid request method.';
+    exit;
 }
 
-$songfileDir = "../SONGS/";
-$gamefileDir = "../SONGS/GameFiles/";
-$portraitfileDir = "../SONGS/Portraits/";
-$bgvideoDir = "../SONGS/BgVideos/";
+$id = (string) ($_POST['ID'] ?? '');
+$title = trim((string) ($_POST['title'] ?? ''));
+$author = trim((string) ($_POST['author'] ?? ''));
+$duration = (string) ($_POST['songDuration'] ?? '');
 
-$json = file_get_contents("../../DB/songs.json");
-$json = json_decode($json, true);
-foreach ($json as $key => $value) {
-    if ($value["ID"] == $_POST["ID"]) {
-        if (isset($_FILES["gamefile"])) {
-            $edited = [
-                "title" => $_POST["title"],
-                "duration" => $_POST["songDuration"],
-                "Author" => $_POST["author"],
-                "ID" => $_POST["ID"]
-            ];
-        } else {
-            $edited = [
-                "title" => $_POST["title"],
-                "duration" => $_POST["songDuration"],
-                "Author" => $_POST["author"],
-                "ID" => $_POST["ID"]
-            ];
-            file_put_contents("../" . $value["GameFile"], $_POST["gamefileArea"]);
-        }
-        $gamefileDir = $value["GameFile"];
-        $songfileDir = $value["SongFile"];
-        $portraitfileDir = $value["Portrait"];
-        $bgvideoDir = $value["BG"];
-        $edited = [
-            "title" => $edited["title"],
-            "duration" => $edited["duration"],
-            "Author" => $edited["Author"],
-            "Portrait" => $portraitfileDir,
-            "SongFile" => $songfileDir,
-            "GameFile" => $gamefileDir,
-            "ID" => $edited["ID"]
-        ];
-        $json[$key] = $edited;
+if ($id === '' || $title === '' || $author === '') {
+    http_response_code(400);
+    echo 'Title, author, and song ID are required.';
+    exit;
+}
+
+$songs = dd_load_songs();
+$index = null;
+foreach ($songs as $i => $song) {
+    if ((string) ($song['ID'] ?? '') === $id) {
+        $index = $i;
         break;
     }
 }
-
-$json = json_encode($json);
-print_r($json);
-file_put_contents("../../DB/songs.json", $json);
-
-if (isset($_FILES["gamefile"])) {
-    move_uploaded_file($_FILES["gamefile"]["tmp_name"], "../" . $gamefileDir);
+if ($index === null) {
+    http_response_code(404);
+    echo 'Song not found.';
+    exit;
 }
-move_uploaded_file($_FILES["songfile"]["tmp_name"], "../" . $songfileDir);
-move_uploaded_file($_FILES["bgvideo"]["tmp_name"], "../" . $bgvideoDir);
-move_uploaded_file($_FILES["portrait"]["tmp_name"], "../" . $portraitfileDir);
 
-header("Location: ../songs.php");
+$song = $songs[$index];
+if (is_numeric($duration) && (float) $duration > 0) {
+    $song['duration'] = $duration;
+}
+$song['title'] = $title;
+$song['Author'] = $author;
+
+$audio = $_FILES['songfile'] ?? [];
+if (($audio['error'] ?? UPLOAD_ERR_NO_FILE) !== UPLOAD_ERR_NO_FILE) {
+    if (!dd_is_allowed_audio($audio)) {
+        http_response_code(400);
+        echo 'The audio file is not an allowed type/size.';
+        exit;
+    }
+    $audioRel = '1-Song_Data/Songs/' . bin2hex(random_bytes(8)) . '_' . dd_sanitize_filename($audio['name']);
+    if (!move_uploaded_file($audio['tmp_name'], dd_fs($audioRel))) {
+        http_response_code(500);
+        echo 'Could not save the audio file.';
+        exit;
+    }
+    $old = (string) ($song['SongFile'] ?? '');
+    $song['SongFile'] = $audioRel;
+    if ($old !== '' && is_file(dd_fs($old)) && strpos($old, '1-Song_Data/Songs/') === 0) {
+        @unlink(dd_fs($old));
+    }
+}
+
+$art = $_FILES['portrait'] ?? [];
+if (($art['error'] ?? UPLOAD_ERR_NO_FILE) !== UPLOAD_ERR_NO_FILE) {
+    if (!dd_is_allowed_image($art)) {
+        http_response_code(400);
+        echo 'The art file is not an allowed type/size.';
+        exit;
+    }
+    $artRel = '1-Song_Data/Art/' . bin2hex(random_bytes(8)) . '_' . dd_sanitize_filename($art['name']);
+    if (!move_uploaded_file($art['tmp_name'], dd_fs($artRel))) {
+        http_response_code(500);
+        echo 'Could not save the art file.';
+        exit;
+    }
+    $old = (string) ($song['Art'] ?? '');
+    $song['Art'] = $artRel;
+    if ($old !== '' && is_file(dd_fs($old)) && strpos($old, '1-Song_Data/Art/') === 0) {
+        @unlink(dd_fs($old));
+    }
+}
+
+$chartFile = $_FILES['gamefile'] ?? [];
+$chartText = (string) ($_POST['gamefileArea'] ?? '');
+if (($chartFile['error'] ?? UPLOAD_ERR_NO_FILE) !== UPLOAD_ERR_NO_FILE) {
+    if (!dd_is_allowed_chart_upload($chartFile)) {
+        header('Location: edit_song.php?id=' . rawurlencode($id) . '&error=1', true, 302);
+        exit;
+    }
+    $dest = dd_fs((string) $song['GameFile']);
+    if (!move_uploaded_file($chartFile['tmp_name'], $dest)) {
+        http_response_code(500);
+        echo 'Could not save the chart file.';
+        exit;
+    }
+} elseif (trim($chartText) !== '') {
+    if (strlen($chartText) > DD_MAX_CHART_BYTES) {
+        header('Location: edit_song.php?id=' . rawurlencode($id) . '&error=1', true, 302);
+        exit;
+    }
+    if (file_put_contents(dd_fs((string) $song['GameFile']), $chartText) === false) {
+        http_response_code(500);
+        echo 'Could not save the chart file.';
+        exit;
+    }
+}
+
+$songs[$index] = $song;
+if (!dd_save_json('1-Song_Data/song_info.json', array_values($songs))) {
+    http_response_code(500);
+    echo 'Could not update the song list. The server may not have write access.';
+    exit;
+}
+
+dd_redirect('Song_Select/song_list.php');
