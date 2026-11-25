@@ -1,65 +1,58 @@
 <?php
-ob_start();
-session_start();
+require dirname(__DIR__, 3) . '/common.php';
+dd_session();
 
-error_reporting(E_ALL);
-ini_set('display_errors', '1');
-
-// Sanitize and validate inputs
-function sanitizeInput($data) {
-    return htmlspecialchars(strip_tags($data));
-}
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $nickname = isset($_POST["nickname"]) ? sanitizeInput($_POST["nickname"]) : '';
-    $songID = isset($_POST["songID"]) ? filter_var($_POST["songID"], FILTER_SANITIZE_NUMBER_INT) : '';
-    $score = isset($_POST["score"]) ? filter_var($_POST["score"], FILTER_SANITIZE_NUMBER_INT) : '';
-
-    // Debug check
-    echo "Received: Nickname: $nickname, Song ID: $songID, Score: $score<br>";
-
-    if (!$nickname || $songID === '' || $score === '') {
-        die("Missing required POST data.");
-    }
-
-    // Path to JSON file
-    $filePath = "../../../1-Song_Data/scores.json";
-
-    // Read existing scores or initialize if the file does not exist or is empty
-    $fileContent = @file_get_contents($filePath);
-    if ($fileContent === false) {
-        // If file read fails, handle error
-        die("Cannot read the scores file.");
-    }
-
-    $jsonData = json_decode($fileContent, true);
-    if ($jsonData === null && json_last_error() !== JSON_ERROR_NONE) {
-        die("Failed to decode JSON: " . json_last_error_msg());
-    }
-
-    if (!isset($jsonData[$songID])) {
-        $jsonData[$songID] = [];
-    }
-
-    // Add new score
-    $jsonData[$songID][] = ["nickname" => $nickname, "score" => $score];
-
-    // Optionally sort scores here or where needed
-
-    // Write updated scores back to file
-    $jsonString = json_encode($jsonData, JSON_PRETTY_PRINT);
-    if ($jsonString === false) {
-        die("Failed to encode JSON.");
-    }
-
-    if (file_put_contents($filePath, $jsonString) === false) {
-        die("Failed to write to scores file.");
-    }
-
-    header("Location: ../../Game.php");
+if (($_SERVER['REQUEST_METHOD'] ?? '') !== 'POST') {
+    http_response_code(405);
+    echo 'Invalid request method.';
     exit;
-} else {
-    die("Invalid request method.");
 }
-ob_end_flush();
-?>
+
+$nickname = trim((string) ($_POST['nickname'] ?? ''));
+$nickname = preg_replace('/\s+/', ' ', $nickname) ?? '';
+$songID = (string) ($_POST['songID'] ?? '');
+$scoreRaw = (string) ($_POST['score'] ?? '');
+
+if ($nickname === '' || $songID === '' || $scoreRaw === '' || !preg_match('/^-?\d+$/', $scoreRaw)) {
+    http_response_code(400);
+    echo 'Missing or invalid form data.';
+    exit;
+}
+if (strlen($nickname) > 24) {
+    $nickname = substr($nickname, 0, 24);
+}
+
+$songs = dd_load_songs();
+$known = false;
+foreach ($songs as $song) {
+    if ((string) ($song['ID'] ?? '') === $songID) {
+        $known = true;
+        break;
+    }
+}
+if (!$known) {
+    http_response_code(400);
+    echo 'Unknown song.';
+    exit;
+}
+
+$score = (int) $scoreRaw;
+if ($score < 0) {
+    $score = 0;
+}
+
+$scores = dd_load_scores();
+$key = $songID;
+if (!isset($scores[$key]) || !is_array($scores[$key])) {
+    $scores[$key] = [];
+}
+$scores[$key][] = ['nickname' => $nickname, 'score' => (string) $score];
+$_SESSION['nickname'] = $nickname;
+
+if (!dd_save_scores($scores)) {
+    http_response_code(500);
+    echo 'Could not save the score. The server may not have write access.';
+    exit;
+}
+
+dd_redirect('Game/Game.php');
