@@ -1,70 +1,55 @@
-<!DOCTYPE html>
-<html>
+<?php
+require dirname(__DIR__, 2) . '/common.php';
+dd_head('Edit Song', [
+    dd_url('Song_Select/Edit_Song/edit_song.js'),
+    dd_url('Song_Select/gamefileHandler.js'),
+    dd_url('Song_Select/song_ticktack.js'),
+]);
 
-<head>
-    <link rel="stylesheet" type="text/css" href="../2-Web_Assets/styles.css">
-    <link rel="icon" type="image/png" href="../2-Web_Assets/The Dance Dimension.png">
-    <meta charset="UTF-8">
-    <title>Edit Song</title>
-    <script src="editsong.js"></script>
-</head>
-
-<body class="body" id="BlackBG">
-    <?php
-    // Display error message if an error parameter is set in the URL
-    if (isset($_GET["error"])) {
-        echo "<div class='error'>";
-        if ($_GET["error"] == 1) {
-            echo "Invalid game file.";
-        }
-        echo "</div>";
-        
+$idParam = $_GET['id'] ?? $_GET['ID'] ?? '';
+$songs = dd_load_songs();
+$current = null;
+foreach ($songs as $song) {
+    if ((string) ($song['ID'] ?? '') === (string) $idParam || (string) ($song['title'] ?? '') === (string) $idParam) {
+        $current = $song;
+        break;
     }
-    ?>
-    <div class="">
-        <fieldset class=" glow">
-        <form action="songEditFunction.php" method="post" id="EditForm" enctype="multipart/form-data">
-            <label for="songfile">Song file</label>
-            <input type="file" id="songfile" name="songfile" accept="audio/mp3" required>
-            <label for="gamefile">Game file</label>
-            <input type="file" id="gamefile" name="gamefile" accept=".txt" required>
-            <!-- Textarea for game file content -->
-            <textarea id="gamefileArea" name="gamefileArea" required></textarea>
-            <script src="../gamefileHandler.js"></script>
-            <label for="portrait">Portrait</label>
-            <input type="file" id="portrait" name="portrait" accept="image/png" required>
-            <label for="title">Title</label>
-            <input type="text" id="title" name="title" required>
-            <label for="author">Author</label>
-            <input type="text" id="author" name="author" required>
-            <!-- Hidden input for song ID -->
-            <input type="text" id="ID" name="ID" style="display: none;">
-            
-            <?php
-            // Load song data to populate the form with current values
-            $json = file_get_contents("../../1-Song_Data/song_info.json");
-            $song = $_GET["ID"];
-            $json = json_decode($json, true);
-            $t = $d = $a = $id = ''; // Initialize variables to avoid undefined index errors
-            foreach ($json as $key => $value) {
-                if ($value["ID"] == $song || $value["title"] == $song) {
-                    $t = $value["title"];
-                    $d = $value["duration"];
-                    $a = $value["Author"];
-                    $id = $value["ID"];
-                    echo "<script>loadEditValues('$t', '$a', '$id')</script>";
-                    break; 
-                }
-            }
-            ?>
-            <input type="hidden" name="songDuration" id="songDuration" value="<?php echo $d; ?>">
-            <script src="../song_ticktack.js"></script>
-            <button type="submit" value="Submit" class="glow button-74"> Submit</button>
-        </form>
+}
+$error = isset($_GET['error']) ? 'The chart file was not valid.' : '';
+?>
+<body class="body" id="BlackBG">
+<main class="page">
+    <p class="nav-row">
+        <a class="button-74 glow" href="<?php echo dd_h(dd_url('Song_Select/song_list.php')); ?>">Song List</a>
+    </p>
+    <?php if ($error): ?>
+        <p class="error glow" role="alert"><?php echo dd_h($error); ?></p>
+    <?php endif; ?>
+    <?php if (!$current): ?>
+        <p class="error glow" role="alert">Song not found.</p>
+    <?php else: ?>
+        <fieldset class="glow">
+            <form action="edit_song_func.php" method="post" id="EditForm" enctype="multipart/form-data">
+                <input type="hidden" id="ID" name="ID" value="<?php echo dd_h((string) $current['ID']); ?>">
+                <label for="title">Title</label>
+                <input type="text" id="title" name="title" maxlength="80" required value="<?php echo dd_h((string) $current['title']); ?>">
+                <label for="author">Author</label>
+                <input type="text" id="author" name="author" maxlength="80" required value="<?php echo dd_h((string) $current['Author']); ?>">
+
+                <label for="songfile">Replace song file (optional)</label>
+                <input type="file" id="songfile" name="songfile" accept=".ogg,.oga,.wav,.mp3,audio/ogg,audio/wav,audio/mpeg">
+                <label for="portrait">Replace art (optional)</label>
+                <input type="file" id="portrait" name="portrait" accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp">
+                <label for="gamefile">Replace chart file (optional)</label>
+                <input type="file" id="gamefile" name="gamefile" accept=".txt,text/plain">
+                <label for="gamefileArea">Or paste new chart content (optional)</label>
+                <textarea id="gamefileArea" name="gamefileArea" rows="8"></textarea>
+
+                <input type="hidden" name="songDuration" id="songDuration" value="<?php echo dd_h((string) ($current['duration'] ?? '0')); ?>">
+                <button type="submit" class="button-74 glow">Submit</button>
+            </form>
         </fieldset>
-        <button class="button-74 glow" onclick="location.href = '../song_list.php'">Song List</button>
-
-    </div>
+    <?php endif; ?>
+</main>
 </body>
-
 </html>

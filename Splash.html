@@ -1,25 +1,23 @@
 <!DOCTYPE html>
-<html>
-    <head>
-    <link rel="stylesheet" type="text/css" href="/2-Web_Assets/styles.css">
-    <link rel="icon" type="image/png" href="2-Web_Assets/The Dance Dimension.png">
+<html lang="en">
+<head>
     <meta charset="UTF-8">
-    <title>Splash</title>
-    </head>
-<body id="loadBG">
-    <div class="breathing-image"></div>
-
-<!-- Timout for redirection to Menu page at 4 secs -->
-<script type="text/javascript" name="5secLoad">
-
-    window.onload=timeout;
-    function timeout(){
-    window.setTimeout("redirect()",4000)}
-    
-    function redirect(){
-    window.location="/Menu/Menu.php"
-    return}
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Dance Dimension</title>
+    <link rel="stylesheet" href="2-Web_Assets/styles.css">
+    <link rel="icon" type="image/png" href="2-Web_Assets/The Dance Dimension.png">
+</head>
+<body id="loadBG" class="splash-page">
+    <a class="breathing-image" href="Menu/Menu.php" title="Enter Dance Dimension">
+        <img src="2-Web_Assets/Short-The_Dance_Dimension.png" alt="Dance Dimension logo">
+    </a>
+    <p class="splash-actions">
+        <a class="button-74 glow" href="Menu/Menu.php">Skip</a>
+    </p>
+    <script>
+    window.setTimeout(function () {
+        window.location.href = "Menu/Menu.php";
+    }, 4000);
     </script>
 </body>
-    </html>
+</html>

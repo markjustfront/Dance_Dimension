@@ -1,49 +1,46 @@
 <?php
-session_start();
+require dirname(__DIR__, 3) . '/common.php';
+dd_session();
 
-$error = "";
-if (!isset($_GET["songID"]) || !isset($_GET["score"])) {
-    $error = "Required parameters 'songID' and 'score' are missing. Please ensure all fields are filled out correctly.";
+$error = '';
+$songID = $_GET['songID'] ?? '';
+$score = $_GET['score'] ?? '';
+$grade = $_GET['gradeLetter'] ?? $_GET['grade'] ?? '';
+
+if ($songID === '' || $score === '') {
+    $error = "Required parameters are missing.";
 } else {
-    // If grade is not set whe set a delfault value
-    $grade = isset($_GET["grade"]) ? htmlspecialchars($_GET["grade"]) : "No Grade";
+    if ($grade === '') {
+        $grade = 'No Grade';
+    }
 }
 
-
+dd_head('Score');
 ?>
-<!DOCTYPE html>
-<html>
-
-<head>
-    <link rel="stylesheet" type="text/css" href="/2-Web_Assets/styles.css">
-    <link rel="icon" type="image/png" href="/2-Web_Assets/The Dance Dimension.png">
-    <meta charset="UTF-8">
-</head>
-
 <body class="body" id="BlackBG">
-    <fieldset calss="score-fieldst">
-    <div class="glow ">
-        <?php if ($error): ?>
-            <p style='color:red;'><?php echo htmlspecialchars($error); ?></p>
-        <?php else: ?>
-            <form action="add_song_score.php" method="post">
-                <label for="nickname">Nickname:</label>
-                <?php if (isset($_SESSION["nickname"])): ?>
-                    <input type="text" id="" class="textarea" name="nickname" value="<?php echo htmlspecialchars($_SESSION["nickname"]); ?>" required>
-                <?php else: ?>
-                    <input type="text" id="" class="textarea" name="nickname" required>
-                <?php endif; ?>
-                <p>Score:</p>
-                <div class="score">
-                    <?php echo htmlspecialchars($_GET["score"]) ?>
-                </div>
-                <input type="hidden" name="songID" value="<?php echo htmlspecialchars($_GET["songID"]); ?>">
-                <input type="hidden" name="score" value="<?php echo htmlspecialchars($_GET["score"]); ?>">
-                <button type="submit" value="Submit" class="button-74 glow">Submit</button>
-            </form>
-        <?php endif; ?>
-    </div>
+<main class="page">
+    <p class="nav-row">
+        <a class="button-74 glow" href="<?php echo dd_h(dd_url('Game/Game.php')); ?>">Song Select</a>
+    </p>
+    <fieldset class="score-fieldset">
+        <div class="glow">
+            <?php if ($error): ?>
+                <p class="error" role="alert"><?php echo dd_h($error); ?></p>
+            <?php else: ?>
+                <form action="add_song_score.php" method="post">
+                    <label for="nickname">Nickname</label>
+                    <input type="text" id="nickname" class="textarea" name="nickname" maxlength="24" required
+                        value="<?php echo dd_h((string) ($_SESSION['nickname'] ?? '')); ?>">
+                    <p>Score: <?php echo dd_h((string) $score); ?></p>
+                    <p>Grade: <?php echo dd_h((string) $grade); ?></p>
+                    <input type="hidden" name="songID" value="<?php echo dd_h((string) $songID); ?>">
+                    <input type="hidden" name="score" value="<?php echo dd_h((string) $score); ?>">
+                    <input type="hidden" name="grade" value="<?php echo dd_h((string) $grade); ?>">
+                    <button type="submit" class="button-74 glow">Submit</button>
+                </form>
+            <?php endif; ?>
+        </div>
     </fieldset>
+</main>
 </body>
-
 </html>

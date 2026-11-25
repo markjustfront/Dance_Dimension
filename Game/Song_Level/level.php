@@ -1,115 +1,103 @@
 <?php
-if (isset($_GET["id"])) {
-    // Retrieve song ID from URL parameters
-    $songID = $_GET["id"];
-    
-    // Load song data from JSON file
-    $json = file_get_contents("../../1-Song_Data/song_info.json");
-    if ($json === false) {
-        die("Failed to load song data.");
-    }
-    
-    $jsonData = json_decode($json, true);
-    if (json_last_error() !== JSON_ERROR_NONE) {
-        die("JSON decoding error: " . json_last_error_msg());
-    }
+require dirname(__DIR__, 2) . '/common.php';
 
-    $songFound = false;
-    foreach ($jsonData as $song) {
-        // Search for the song with matching ID
-        if ($song["ID"] == $songID) {
-            $songTitle = htmlspecialchars($song["title"]); // Sanitize for XSS prevention
-            $songAuthor = htmlspecialchars($song["Author"]);
-            $songPortrait = "../" . htmlspecialchars($song["Art"]);
-            $songSongFile = "../" . htmlspecialchars($song["SongFile"]);
-            $songGameFile = "../" . htmlspecialchars($song["GameFile"]);
-            $songFound = true;
-            break;
-        }
-    }
-
-    if (!$songFound) {
-        die("Song not found.");
-    }
-} else {
-    die("No song ID provided.");
+$songID = $_GET['id'] ?? '';
+if ($songID === '') {
+    http_response_code(400);
+    dd_head('Game');
+    echo "<body id=\"BlackBG\"><main class=\"page\"><p class=\"error glow\">No song ID provided.</p></main></body></html>";
+    exit;
 }
-?>
-<!DOCTYPE html>
-<html>
 
-<head>
-    <title><?php echo $songTitle; ?></title>
-    <link rel="stylesheet" type="text/css" href="/2-Web_Assets/styles.css">
-    <link rel="icon" type="image/png" href="/2-Web_Assets/The Dance Dimension.png">
-    <meta charset="UTF-8">
-    <script src="mediaPlayer.js"></script>
-</head>
+$current = null;
+foreach (dd_load_songs() as $song) {
+    if ((string) ($song['ID'] ?? '') === (string) $songID) {
+        $current = $song;
+        break;
+    }
+}
+if (!$current) {
+    http_response_code(404);
+    dd_head('Game');
+    echo "<body id=\"BlackBG\"><main class=\"page\"><p class=\"error glow\">Song not found.</p></main></body></html>";
+    exit;
+}
 
-<body id="BlackBG">
-    <?php
-    // Start the music player with the selected song
-    echo "<script>startMusic('../../$songSongFile', $songID);</script>";
-    ?>
-    <div class="level">
-        <!-- Button to return to the main menu -->
-        <div class="back-to-menu">
-            <button class="button-74 glow" onclick="location.href='../Game.php'">Main Menu</button>
-        </div>
+$songTitle = (string) $current['title'];
+$songAuthor = (string) ($current['Author'] ?? '');
+$songPortrait = dd_url((string) $current['Art']);
+$songSongFile = dd_url((string) $current['SongFile']);
+$chartPath = dd_fs((string) $current['GameFile']);
 
-        <!-- Game interface for arrow keys -->
-        <div class="playMat" id="playMat">
-            <div class="playMat-row">
-                <div id="playMat-12"></div>
-            </div>
-            <div class="playMat-row">
-                <div id="playMat-11"></div>
-                <div id="playMat-14"></div>
-            </div>
-            <div class="playMat-row">
-                <div id="playMat-13"></div>
-            </div>
-        </div>
-
-        <!-- Display for score and grade -->
-        <div class="score ">
-            <fieldset>
-                <div class="gradeLetter glow" id="gradeLetter">F</div>
-                <div class=" glow" id="score">0</div>
-            </fieldset>
-        </div>
-
-        <!-- Progress bar for the game -->
-        <div class="gametime" id="progressBar"></div>
-
-        <!-- Song information display -->
-    <fieldset>
-        <div class="">
-            <div class="song-info">
-                <div class="level-songTitle glow"><?php echo $songTitle; ?></div>
-                <div class="songAuthor glow"><?php echo $songAuthor; ?></div>
-                <img class="songPic-image" alt="Song Art" src="<?php echo $songPortrait ?>">
-            </div>
-        </div>
-</fieldset>
-
-        <!-- Include JavaScript for level gameplay -->
-        <script src="level.js"></script>
-        <?php
-        // Load and parse the game file for the current song
-        $file = file_get_contents($songGameFile);
-        $file = explode(PHP_EOL, $file);
-        $nArrows = $file[0]; // First line contains the number of arrows
-        unset($file[0]);
-        $lines = [];
+$nArrows = 0;
+$lines = [];
+if (is_file($chartPath)) {
+    $raw = file_get_contents($chartPath);
+    if ($raw !== false) {
+        $file = preg_split("/\r\n|\n|\r/", $raw) ?: [];
+        $nArrows = (int) array_shift($file);
         foreach ($file as $content) {
-            $line = explode(" # ", $content);
-            $lines[] = $line;
+            $content = trim($content);
+            if ($content === '') {
+                continue;
+            }
+            $parts = array_map('trim', explode('#', $content));
+            if (count($parts) >= 3) {
+                $lines[] = [$parts[0], $parts[1], $parts[2]];
+            }
         }
-        $lines = json_encode($lines);
-        echo "<script>getLevel($nArrows, $lines)</script>";
-        ?>
-    </div>
-</body>
+        if ($nArrows <= 0) {
+            $nArrows = count($lines);
+        }
+        $nArrows = min($nArrows, count($lines));
+    }
+}
 
+dd_head($songTitle, [
+    dd_url('Game/Song_Level/mediaPlayer.js'),
+]);
+?>
+<body id="BlackBG">
+<main class="page level">
+    <p class="nav-row back-to-menu">
+        <a class="button-74 glow" href="<?php echo dd_h(dd_url('Game/Game.php')); ?>">Song Select</a>
+    </p>
+
+    <div class="playMat" id="playMat">
+        <div class="playMat-row">
+            <button type="button" class="pad" id="playMat-12" data-dir="12" aria-label="Up"></button>
+        </div>
+        <div class="playMat-row">
+            <button type="button" class="pad" id="playMat-11" data-dir="11" aria-label="Left"></button>
+            <button type="button" class="pad" id="playMat-14" data-dir="14" aria-label="Right"></button>
+        </div>
+        <div class="playMat-row">
+            <button type="button" class="pad" id="playMat-13" data-dir="13" aria-label="Down"></button>
+        </div>
+    </div>
+
+    <div class="score">
+        <fieldset>
+            <div class="gradeLetter glow" id="gradeLetter">F</div>
+            <div class="glow" id="score">0</div>
+        </fieldset>
+    </div>
+
+    <div class="gametime" id="progressBar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"></div>
+
+    <fieldset>
+        <div class="song-info">
+            <div class="level-songTitle glow"><?php echo dd_h($songTitle); ?></div>
+            <div class="songAuthor glow"><?php echo dd_h($songAuthor); ?></div>
+            <img class="songPic-image" alt="<?php echo dd_h($songTitle . ' art'); ?>" src="<?php echo dd_h($songPortrait); ?>">
+        </div>
+    </fieldset>
+
+    <script src="<?php echo dd_h(dd_url('Game/Song_Level/level.js')); ?>"></script>
+    <script>
+    startMusic(<?php echo dd_json($songSongFile); ?>, <?php echo dd_json($songID); ?>);
+    getLevel(<?php echo (int) $nArrows; ?>, <?php echo dd_json($lines); ?>);
+    </script>
+</main>
+</body>
 </html>

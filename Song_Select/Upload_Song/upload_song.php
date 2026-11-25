@@ -1,64 +1,53 @@
 <?php
-session_start();
+require dirname(__DIR__, 2) . '/common.php';
+dd_head('Upload Song', [
+    dd_url('Song_Select/Upload_Song/upload_song.js'),
+    dd_url('Song_Select/song_ticktack.js'),
+]);
 ?>
-<!DOCTYPE html>
-<html>
-<head>
-    <link rel="stylesheet" type="text/css" href="../2-Web_Assets/styles.css">
-    <link rel="icon" type="image/png" href="../2-Web_Assets/The Dance Dimension.png">
-    <meta charset="UTF-8">
-    <title>Upload Song</title>
-</head>
 <body class="body" id="BlackBG">
-        <button class="button-74 glow" onclick="window.location.href='/Menu/Menu.php'">Main Menu</button>
+<main class="page">
+    <p class="nav-row">
+        <a class="button-74 glow" href="<?php echo dd_h(dd_url('Menu/Menu.php')); ?>">Main Menu</a>
+    </p>
     <div class="upload-content">
-        <fieldset class="altfield glow">
-        <form action="upload_song_func.php" method="post" enctype="multipart/form-data">                
-            <label for="title" class="glow ">Title</label>
-                <input type="text" id="title" name="title" placeholder="Computer World" required/>
+        <fieldset class="glow">
+            <form action="upload_song_func.php" method="post" enctype="multipart/form-data">
+                <label for="title" class="glow">Title</label>
+                <input type="text" id="title" name="title" maxlength="80" required>
 
-                <label for="author" class="glow ">Author</label>
-                <input type="text" id="author" name="author" placeholder="Kraftwerk" required/>
+                <label for="author" class="glow">Author</label>
+                <input type="text" id="author" name="author" maxlength="80" required>
 
-                <label for="songfile" class="glow ">Song File (MP3)</label>
-                <input type="file" id="songfile" name="songfile" accept=".mp3" required>
+                <label for="songfile" class="glow">Song file (OGG, WAV, or MP3, max 8 MB)</label>
+                <input type="file" id="songfile" name="songfile" accept=".ogg,.oga,.wav,.mp3,audio/ogg,audio/wav,audio/mpeg" required>
 
-                <label for="Art" class="glow ">Art</label>
-                <input type="file" id="art" name="art" accept="jpg/png" required/>
+                <label for="art" class="glow">Art (JPEG, PNG, or WebP, max 3 MB)</label>
+                <input type="file" id="art" name="art" accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp" required>
 
-                <!-- Game File Upload Method Selection -->
-                <label class="glow ">Game File Upload Method</label>
-                <div>
-                    <input type="radio" id="fileUpload" name="uploadMethod" value="file" onclick="showField('file')" required>
-                    <label for="fileUpload" class="glow">File Upload</label>
-                    <input type="radio" id="textUpload" name="uploadMethod" value="text" onclick="showField('text')">
-                    <label for="textUpload" class="glow">Text Entry</label>
-                </div>
-
-                <!-- File Upload Field -->
-                <div id="fileField" style="display:none;">
-                    <input type="file" id="gamefile" name="gamefile" accept=".txt">
-                </div>
-
-                <!-- Text Entry Field -->
-                <div id="textField" style="display:none;">
-                    <label for="gamefileArea" class="glow ">Game File Content</label>
-                    <textarea id="gamefileArea" name="gamefileArea" placeholder="Enter game file content here..."></textarea>
-                </div>
+                <fieldset class="inner">
+                    <legend class="glow">Chart upload method</legend>
+                    <div>
+                        <input type="radio" id="fileUpload" name="uploadMethod" value="file" required>
+                        <label for="fileUpload">File upload</label>
+                        <input type="radio" id="textUpload" name="uploadMethod" value="text">
+                        <label for="textUpload">Text entry</label>
+                    </div>
+                    <div id="fileField" hidden>
+                        <label for="gamefile">Chart file (.txt)</label>
+                        <input type="file" id="gamefile" name="gamefile" accept=".txt,text/plain">
+                    </div>
+                    <div id="textField" hidden>
+                        <label for="gamefileArea" class="glow">Chart content</label>
+                        <textarea id="gamefileArea" name="gamefileArea" rows="8" placeholder="85&#10;37 # 1.0 # 2.0"></textarea>
+                    </div>
+                </fieldset>
 
                 <input type="hidden" name="songDuration" id="songDuration" value="0">
-
                 <button type="submit" class="button-74 glow">Submit</button>
             </form>
         </fieldset>
     </div>
-    <script src="upload_song.js"></script>
-    <script>
-        function showField(type) {
-            document.getElementById('fileField').style.display = type === 'file' ? 'block' : 'none';
-            document.getElementById('textField').style.display = type === 'text' ? 'block' : 'none';
-        }
-    </script>
-    <script src="../song_ticktack.js"></script>
+</main>
 </body>
 </html>

@@ -1,9 +1,4 @@
 <?php
-function Redirect($url, $permanent = false)
-{
-    header('Location: ' . $url, true, $permanent ? 301 : 302);
-
-    exit();
-}
-
-Redirect('../Splash.html', false);
+require __DIR__ . '/common.php';
+header('Location: Splash.html', true, 302);
+exit;
