@@ -1,1 +1,5 @@
 *.mp3
+config.php
+*.tmp
+.DS_Store
+Thumbs.db
